@@ -1,0 +1,40 @@
+question : is to set matrix row and column 0 ,
+
+intution : in 1 nested iteration check if [row][col]==0 then make array row and array col 0 .
+another nested iteration start from last and here check if any arr[i][0] ==0 || arr[0][j]==0 then 
+make arr[i][j] =0 and  after col iteration check if col1 == true then make arr[i][0] = 0;
+note : check if ist row ist col is 0 then mark its .
+
+//----------------------------------------------------------------//
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        int col0 = 0;
+        for(int i=0;i<n;i++){
+            if(matrix[i][0] == 0){
+                col0 = 1;
+            }
+            for(int j=1;j<m;j++){
+                if(matrix[i][j] ==0){
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        for(int i=n-1;i>=0;i--){
+            for(int j=m-1;j>=1;j--){
+                if(matrix[i][0] ==0 || matrix[0][j] == 0){
+                    matrix[i][j] = 0;
+                }
+            }
+            if(col0 == 1){
+                matrix[i][0] = 0;
+            }
+        }
+        return  ;
+        
+    }
+};

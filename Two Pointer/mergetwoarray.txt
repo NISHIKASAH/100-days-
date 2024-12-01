@@ -1,0 +1,35 @@
+question : merge arra1 and array2 and store the merge in arr1.
+
+intution : to do so  ,use pointer to store pointer to the update place 
+where elem are to be stored.
+start iterating from back of both array and place new elem in last index 
+
+//-------------------------------------------------------------//
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i = m-1;
+        int j = n-1;
+        int k = m+n-1;
+        while(i>=0 and j>=0){
+            if(nums1[i]>=nums2[j]){
+                nums1[k--] = nums1[i];
+                i--;
+                
+            }
+            else if(nums1[i] < nums2[j]){
+                nums1[k--] = nums2[j];
+                j--;
+            }
+        }
+        while(i>=0){
+            nums1[k--] = nums1[i];
+            i--;
+        }
+        while(j>=0){
+            nums1[k--] = nums2[j];
+            j--;
+        }
+    }
+};

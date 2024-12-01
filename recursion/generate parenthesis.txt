@@ -1,0 +1,31 @@
+question : storing all possible parantheis.
+
+
+intution : use two varaile to account open and close bracket and ds to  store barckets ,
+and ans to store all posible paranthesis.
+
+
+//---------------------------------------------//
+class Solution {
+public:
+    void solve(int open,int close,int n,string ds,vector<string> &ans){
+        if(open==n){
+            while(close<n){
+                close++;
+                ds+=')';
+            }
+            ans.push_back(ds);
+            return;
+        }
+        solve(open+1,close,n,ds+'(',ans);
+        if(close<open){
+            solve(open,close+1,n,ds+')',ans);
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        string ds="";
+        solve(0,0,n,ds,ans);
+        return ans;
+    }
+};

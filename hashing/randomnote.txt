@@ -1,0 +1,31 @@
+question : find if random notes can be creatig using char from magzine. 
+note : Each letter in magazine can only be used once in ransomNote.
+
+intution : store all magzine elem in map ,
+and look for randomnote char found in mp or not if not found return false,
+nhi toh decreemnt its value in map .
+
+//-----------------------------------------------------//
+
+class Solution {
+public:
+    bool canConstruct(string ran, string mag) {
+        unordered_map<char , int>mp;
+        for(int i=0;i<mag.length();i++){
+            mp[mag[i]]++;
+        }
+        for(int i=0;i<ran.length();i++){
+            if(mp.find(ran[i]) == mp.end()){
+                return false;
+            }
+            else{
+                mp[ran[i]]--;
+                if(mp[ran[i]] == 0){
+                    mp.erase(ran[i]);
+                }
+            }
+            
+        }
+        return true;
+    }
+};

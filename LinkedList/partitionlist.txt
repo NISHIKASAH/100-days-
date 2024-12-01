@@ -1,0 +1,35 @@
+question : partion list such a way  ,
+so that node less than k appear to left and greater appear to right.
+
+intution : create 2 dummy node 1 for storing node less than x and 1 for string greater than  
+and join them .
+
+//-------------------------------------------------------//
+
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode * dummy1 = new ListNode();
+        ListNode * l1 = dummy1 ;
+          ListNode * dummy2 = new ListNode();
+        ListNode * l2 = dummy2 ;
+        ListNode * curr = head;
+        while(curr!=NULL){
+            if(curr->val<x){
+            l1->next  = curr;
+            l1 = l1->next;
+           
+            }
+           else {
+            l2->next = curr;
+            l2 = l2->next ; 
+           
+           }
+            curr = curr->next;
+        }
+        l1->next= dummy2->next;
+        l2->next = NULL;
+        return dummy1->next;
+
+    }
+};

@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//-----------copy constructor-------------//
+class A {
+    public:
+    int a ; 
+    A(int x){
+        a = x;
+        
+    }
+     A(A &i){
+        a = i.a;
+    }
+    
+};
+
+int main(){
+    A obj1(2);
+    A obj2(obj1);
+    cout<<obj2.a;
+}

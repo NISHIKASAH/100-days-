@@ -1,0 +1,25 @@
+Jumbo Burger: 4 tomato slices and 1 cheese slice require
+ Small Burger requires : 2 Tomato slices and 1 cheese slices to make burger 
+return how many jumbo and smalll burge can be formed , with 0 wastage
+
+maths :  find 4j + 1s = tomato ; //4f or large and 2 for s tomato  
+              2j + 1s = cheese ; 
+
+example :
+Input: tomatoSlices = 16, cheeseSlices = 7
+Output: [1,6]
+Explantion: To make one jumbo burger and 6 small burgers we need 4*1 + 2*6 = 16 tomato and 1 + 6 = 7 cheese.
+There will be no remaining ingredients.
+
+/------------------------/
+class Solution {
+public:
+    vector<int> numOfBurgers(int ts, int cs) {
+        int  j = (ts - 2*cs)/2;
+        int s = cs - j ; 
+        if( j >=0 and s >=0  and 4*j + 2*s == ts  and j + s == cs ){
+            return {j ,s};
+        }
+        else return {};
+    }
+};

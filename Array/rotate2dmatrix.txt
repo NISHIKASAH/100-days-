@@ -1,0 +1,22 @@
+question : rotate a 2d matrix by 90.
+
+intution : rotate each colum till row i.e j<i .
+nd swap row and colum elem . 
+reverse for each col.
+
+//----------------------------------------------//
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<i;j++){
+                swap(matrix[i][j] , matrix[j][i]);
+            }
+        }
+        for(int i=0;i<matrix.size();i++){
+            reverse(matrix[i].begin(), matrix[i].end());
+        }
+        return ;
+    }
+};

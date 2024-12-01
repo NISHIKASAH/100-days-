@@ -1,0 +1,40 @@
+question : is to find the maximum product from subarray .
+
+intution :iterate from left to right and get maxproduct  , 
+then iterate from right to left to get maxproduct.
+note : if(n==0){
+    n=1;
+}
+
+
+//---------------------------------------//
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int len = nums.size();
+        int n =1;
+        int m =1;
+        int ans= INT_MIN;
+        for(int i=0;i<nums.size();i++){
+           if(n==0){
+                n = 1;
+            }
+            n = n*nums[i];
+              
+           
+            ans = max(ans , n);
+        }
+        for(int i=len-1;i>=0;i--){
+               if(m==0){
+                m = 1;
+            }
+           
+            m = m*nums[i];
+           
+           
+            ans = max(ans , m);
+        }
+        return ans;
+    }
+};

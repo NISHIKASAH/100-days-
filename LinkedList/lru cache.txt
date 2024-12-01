@@ -1,0 +1,67 @@
+question : implement least reacenlty used.
+
+intution : create vector with pair  , 
+and intilize size with capacity given 
+ get case - search for key in vector  ,if found  then upate its value , 
+erase from begining and push it in last . 
+
+put case - NOTE we dont have to update value ,
+if elem found  , erase from start.
+and push new key value in end .
+
+if size ==n then erase frint pair and new pair in end
+else directly push in end.
+
+
+//-----------------------------------------------------------//
+
+
+Code
+C++
+class LRUCache {
+public:
+vector<pair<int,int>>vec;
+int n ;
+    LRUCache(int capacity) {
+        n= capacity;
+    }
+    
+    int get(int key) {
+        int val =0 ;
+        for(int i=0;i<vec.size();i++){
+            if(vec[i].first == key){
+                val  = vec[i].second;
+                
+                vec.push_back(vec[i]);
+                 vec.erase(vec.begin()+i);
+               
+                return val;
+            }
+            
+        }
+        return -1;
+
+        
+    }
+    
+    void put(int key, int value) {
+        for(int i=0;i<vec.size();i++){
+            if(vec[i].first == key){
+                  vec.erase(vec.begin()+i);
+                vec.push_back({key , value});
+              
+
+            }
+        }
+        if(vec.size()==n){
+            vec.erase(vec.begin());
+           vec.push_back({key , value});
+        }
+        else{
+            vec.push_back({key , value});
+        }
+        
+    }
+};
+
+

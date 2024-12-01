@@ -1,0 +1,50 @@
+question : array of listnode is given ,merge the array in sorted order.
+example : Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+Explanation: The linked-lists are:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+merging them into one sorted list:
+1->1->2->3->4->4->5->6
+
+intution : considered listnode[0] as head and merge them 
+do this iterative for all node.
+
+//--------------------------------------------------------//
+
+
+class Solution {
+public:
+ListNode * merging(ListNode* l1 , ListNode * l2){
+ListNode * curr =0;
+if(!l1){
+    return l2;
+}
+else if(!l2){
+    return l1;
+}
+    if(l1->val <= l2->val){
+        curr = l1;
+       curr->next =  merging(l1->next , l2);
+    }
+    else if(l2->val<l1->val){
+       curr = l2;
+       curr->next = merging(l1 , l2->next);
+    }
+    return curr;
+}
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if(lists.size()==0){
+            return NULL;
+        }
+    ListNode* head = lists[0];
+    for(int i=1;i<lists.size() ;i++){
+        head = merging(head , lists[i]);
+    }
+    return head;
+        
+    }
+};

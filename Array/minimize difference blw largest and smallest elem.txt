@@ -1,0 +1,26 @@
+question : minimize the difference b/w largest and smallest 
+elem by chnaging 3 elem (i.e with 3 moves)
+
+intitution :  get the first diff , ie blw from last 4th elem and ist elem 
+that is point we form window . and can now change elem b/w this two window by getting their diff
+Note : if len <=4 then we can complete chnage all elem  ,so their diff will be 0
+
+//-----------------------------------------//
+
+class Solution {
+public:
+    int minDifference(vector<int>& nums) {
+
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        if(n <=4){
+            return 0;
+        }
+        int ans = INT_MAX;
+        ans = min(ans, nums[n - 4] - nums[0]);
+        ans = min(ans, nums[n - 1] - nums[3]);
+        ans = min(ans, nums[n - 3] - nums[1]);
+        ans = min(ans, nums[n - 2] - nums[2]);
+        return ans;
+    }
+};                            

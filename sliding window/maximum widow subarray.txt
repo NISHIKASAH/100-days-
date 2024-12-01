@@ -1,0 +1,43 @@
+question :return the minimum window 
+substring of s such that every character in t (including duplicates) is included in the window.
+  If there is no such substring, return the empty string "".
+
+example : Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+intution : use sliding window + two pointer  
+map all char of t inside mp and iterate over s string , when char encounter  
+reduce its frequnce from mp and if mp[s[i]] == 0  then count--
+while count==0 means all char count , get the size and start (togetsubstring)  and now compress from 
+front(that is done by mp elem from start) and increment count.
+
+//-------------------------------------------------------//
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+       
+        unordered_map<char, int> m;
+        for(char c : t) m[c]++;
+
+        int i = 0, d = INT_MAX, cnt = m.size();
+        string ans;
+        for(int j=0; j<s.size(); j++) {
+            if(m.find(s[j]) != m.end()) {
+                m[s[j]]--;
+                if(!m[s[j]]) cnt--;
+            }
+            while(!cnt) {
+                if(j - i + 1 < d) d = j - i + 1, ans = s.substr(i, j - i + 1);
+                if(m.find(s[i]) != m.end()) {
+                    m[s[i]]++;
+                    if(m[s[i]] > 0) cnt++;
+                }
+                i++;
+            }
+        }
+        return ans;
+     
+    }
+};

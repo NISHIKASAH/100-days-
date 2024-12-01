@@ -1,0 +1,39 @@
+question : two array (top and bottom) of dice  ,that has 2 faces with value , by minimum swapping
+make  all dices facing  have same value . 
+
+intution  : to do this problem , we need to have target , either we can make top first elem as target to make all 
+dice appear as top[0] , top[i] !=target  then swap ,we just have to maintain count for swap 
+
+if top and bottom but dont have target ,the its not possible 
+
+we have 4 option for checking  ,balancing all with top and considering top[0] as targer
+2.same but considering bottom as target ,
+and 3 . consedering bottom  to place along by with top[0] as traget 
+4 .with bottom[0] as target
+
+
+/---------------------------------------------/
+
+class Solution {
+public:
+int solve(int target ,vector<int>&tops,vector<int>&bottoms){
+    int count=0;
+   for(int i=0;i<tops.size();i++){
+    if(tops[i]!= target and bottoms[i] != target){
+        return INT_MAX;
+    }
+    else if(tops[i] != target){
+        count++;
+    }
+   }
+    return count;
+}
+    int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {
+        int minswap = INT_MAX;
+        minswap = min(minswap , solve(tops[0] , tops, bottoms)) ; 
+        minswap =min(minswap ,solve(bottoms[0] , tops ,bottoms));
+        minswap=min(minswap ,solve(tops[0], bottoms ,tops));
+        minswap = min(minswap ,solve(bottoms[0] , bottoms ,tops));
+        return minswap ==INT_MAX ? -1 : minswap;
+    }
+};

@@ -1,0 +1,45 @@
+question : find the word in matrix ,
+Note: one char can be use only once  .
+
+intution : use the khandani approach for 4 drn of true and false (dfs).
+while traversing store the cell value in varaible and mark it visited and 
+while backtracking store cell  original value .
+
+
+
+//---------------------------------------------------//
+
+
+class Solution {
+public:
+    bool dfs(int count ,int i,int j,int row,int col,vector<vector<char>>&board,string word){
+        if(count == word.size()){
+            return true;
+        }
+        if(i<0 || i>=row || j<0 || j>=col || board[i][j] != word[count]){
+            return false;
+        }
+        int temp = board[i][j];
+        board[i][j] = ' ';
+        bool ans = dfs(count+1,i+1,j,row,col,board,word) 
+            || dfs(count+1,i-1,j,row,col,board,word) 
+            || dfs(count+1,i,j+1,row,col,board,word)
+            || dfs(count+1,i,j-1,row,col,board,word);
+        
+        board[i][j] = temp;
+        return ans;
+        
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        int row = board.size();
+        int col = board[0].size();
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(board[i][j] ==word[0]){
+                    if(dfs(0,i,j,row,col,board,word)== true) return true;
+                }
+            }
+        }
+        return false;
+    }
+};

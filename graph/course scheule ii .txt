@@ -1,0 +1,65 @@
+question : to take course a  ,course b must be take , 
+return the order in which courses can be taken.
+
+intution : basically we have to find the order  ,  so think of sorting in graph 
+i.e toposort .that give to reach a you need to go node b .
+find indgree  , push in queue, which has 0 indegree, 
+and interate . while iterate a node  push that node in ans , and traverse its adjnode.
+
+
+//------------------------------------------//
+
+
+class Solution {
+public:
+    vector<int> findOrder(int m, vector<vector<int>>& pre) {
+        vector<int>ans;
+        int n = pre.size();
+        vector<int>adj[m];
+        for(int i=0;i<n;i++){
+            int u = pre[i][0];
+            int v = pre[i][1];
+            adj[v].push_back(u);
+        }
+        vector<int>inorder(m,0);
+        for(int i=0;i<m;i++){
+            for(auto it:adj[i]){
+                inorder[it]++;
+            }
+        }
+        queue<int>q;
+        for(int i=0;i<m;i++){
+            if(inorder[i]==0){
+                q.push(i);
+            }
+        }
+        while(!q.empty()){
+            int node = q.front();
+            ans.push_back(node);
+            q.pop();
+            for(auto it:adj[node]){
+                if(inorder[it]!=0){
+                    inorder[it]--;
+                }
+                if(inorder[it]==0){
+                    q.push(it);
+                }
+            }
+        }
+        if(ans.size() == m){
+            return ans;
+        }
+        else return {};
+        
+        
+    }
+};
+
+
+
+/-----------------------------------/
+
+question variation - to check if all course can be take or not return true or false.
+
+in such case , find the same  , if the size of ans  == no of nodes , that mean all course
+was possible taken return true else return false.

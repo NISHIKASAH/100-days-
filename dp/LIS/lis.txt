@@ -1,0 +1,25 @@
+question : find the longest increasing subsequence.
+
+intution : considered a dp ,with each char having atleast 1 occurence.
+and iterate from i=1 elem and see j=0 to j<i if arr[i]> arr [j] , 
+store the occurence in dp . the return the max elem as it the lis.
+
+
+//--------------------------------------//
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int  n = nums.size();
+      vector<int>dp(n,1);
+      for(int i=1;i<n;i++){
+        for(int j=0;j<i;j++){
+            if(nums[i] > nums[j]){
+                dp[i]  = max(dp[i] , dp[j]+1);
+            }
+        }
+      }
+      return *max_element(dp.begin() , dp.end());
+
+    }
+};

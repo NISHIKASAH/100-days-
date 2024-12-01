@@ -1,0 +1,53 @@
+question : we have array , and we needd to split in such manner that our  sum of minimized
+
+example : Input: nums = [7,2,5,10,8], k = 2
+Output: 18 
+
+intution : since we have to minimize the sum , we cannot think of sum  can 
+range from 0 to sum of all elem now we need to minimized it do that by binarysearch 
+for split ,  if sum + arr[i] > considered sum, then we need to split , count the no of split 
+to satisfied the splitcunt<=k
+
+//------------------------------------//
+
+
+class Solution {
+public:
+int findminSubarray(vector<int>&nums , int maxSum,int k){
+    int sum =0 ;
+    int count=1;
+    for(int i=0;i<nums.size();i++){
+         if(sum > maxSum) return false;
+         sum += nums[i];
+        if(sum>maxSum){
+            count++;
+            sum = nums[i];
+        }
+        
+    }
+    return count<=k;
+    
+}
+    int splitArray(vector<int>& nums, int k) {
+        int low =0;
+        int sum =0;
+        for(int i=0;i<nums.size();i++){
+            sum += nums[i];
+        }
+        int high = sum;
+        int ans = 0;
+        while(low <=high){
+            int mid = (low+high)/2;
+            if(findminSubarray(nums , mid ,k)){
+        
+                high = mid-1;
+
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        return low;
+        
+    }
+};

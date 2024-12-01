@@ -1,0 +1,76 @@
+intution : if i==0  ||  arr[i] != arr[i-1] then start = i+1 , end = n-1
+insided while start < end  start == strt+1 then start++;
+while  start<end and end = end-1 then end--
+
+remeber to sort it.
+
+or we can use set to prevent this condition check (its a easy way)
+
+
+
+//------------------------------------------------------//
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin() , nums.end());
+        int n = nums.size();
+        vector<vector<int>>ans;
+        for(int i=0;i<n;i++){
+            if(i==0 || nums[i] != nums[i-1]){
+                int rem = 0-nums[i];
+                int start = i+1;
+                int end = n-1;
+                while(start<end){
+                    vector<int>temp;
+                    if(nums[start] + nums[end] == rem){
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[start]);
+                        temp.push_back(nums[end]);
+                        while(start<end and nums[start] == nums[start+1]) start++;
+                        while(start<end and nums[end] == nums[end-1]) end--;
+                        ans.push_back(temp);
+                        start++;
+                        end--;
+                    }
+                    else if(nums[start] + nums[end] < rem){
+                        start++;
+                    }
+                    else{
+                        end--;
+                    }
+
+                }
+            }
+        }
+        return ans;
+    }
+}; 
+
+//-------------------------------or ----------------------------------//
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        set<vector<int>>s;
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<n;i++){
+            int l=i+1;
+            int h=n-1;
+            while(l<h){
+                if(nums[i]+nums[l]+nums[h]==0){
+                    s.insert({nums[i],nums[l],nums[h]});
+                    l++;
+                    h--;
+                }
+                else if(nums[i]+nums[l]+nums[h]<0)l++;
+                else h--;
+            }
+           
+        }
+         vector<vector<int>>ans(s.begin(),s.end());
+            return ans;
+
+    }
+};

@@ -1,0 +1,20 @@
+intituion  : for ith round  , toggled every ith bulb  , means toggle muntiple of 
+i,
+notes all bulb except for the sqrt one get close , bcoz sqrt bulb dont dont have even pair 
+for off on of bulb  ,
+example : 5 
+1 - on 
+2 -on -off
+3 - on -off
+4 -on -off -on
+5-on -off
+
+so only 1 and 4 are on which are perfect square ;
+
+
+class Solution {
+public:
+    int bulbSwitch(int n) {
+     return sqrt(n);
+    }
+};

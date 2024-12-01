@@ -1,0 +1,5 @@
+note1 : when u have to craete a whole new listnode then create a dummy node and a 
+pointer to point it.
+
+
+note2 : when u have to link listnode /node then use a point to do this.

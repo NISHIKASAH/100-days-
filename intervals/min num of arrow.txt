@@ -1,0 +1,34 @@
+question : minimum no of arrow required to burst all balloons.
+
+Input: points = [[10,16],[2,8],[1,6],[7,12]]
+Output: 2
+Explanation: The balloons can be burst by 2 arrows:
+- Shoot an arrow at x = 6, bursting the balloons [2,8] and [1,6].
+- Shoot an arrow at x = 11, bursting the balloons [10,16] and [7,12].
+
+intution : if they overlap ,burst using same arrow  , if they don't a new arrow is reqyired ,keep updating the endpoints 
+for both case merge or notmerge .
+remember - ek toh lagegi hi to start bursting balloons.
+ans = 1 and endpoints  = arr[0][1];
+
+//---------------------------------------------------------------//
+
+class Solution {
+public:
+    int findMinArrowShots(vector<vector<int>>& points) {
+         sort(points.begin(), points.end());
+        int lastpoint = points[0][1];
+        int ans = 1;
+        for(auto point : points) {
+            if(point[0] > lastpoint) {
+                ans++;
+                lastpoint = point[1];
+            }
+            lastpoint = min(point[1],lastpoint);
+        }
+        return ans;
+    }
+};
+
+
+

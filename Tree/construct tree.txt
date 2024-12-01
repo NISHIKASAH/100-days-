@@ -1,0 +1,81 @@
+question : construct tree from inorder and preorder
+
+intution : create root node using pre[0],find its position in call 
+for root->left till 0,pos-1
+and root->right  from pos+1 to end.
+note : give referse of idx to get pre elem.
+
+
+
+
+//------------------------------------------------//
+
+
+class Solution {
+public:
+int searchPos(int elem ,vector<int>&in ,  int start  , int end){
+    int idx =0;
+    for(int i = start; i<= end ;i++){
+        if(in[i] == elem){
+            idx =i;
+        }
+    }
+    return idx;
+
+
+}
+TreeNode * construct(int &idx , int start , int end , vector<int>&pre , vector<int>&in){
+   if(start > end  || idx >=pre.size() ){
+    return NULL;
+   }
+   
+    int elem = pre[idx++];
+   TreeNode * root = new TreeNode(elem);
+    int pos = searchPos(elem , in , start,end);
+    root->left = construct(idx , start , pos-1, pre,in);
+    root->right =construct(idx, pos+1 , end , pre ,in);
+    return root;
+}
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int size = preorder.size();
+        int idx= 0;
+        return construct(  idx ,0 ,size-1,preorder , inorder);
+    }
+};
+
+
+
+//----------------postorder and inorder-------------------------//
+
+int searchPos(int elem ,vector<int>&in ,  int start  , int end){
+    int idx =0;
+    for(int i = end; i>=start ;i--){
+        if(in[i] == elem){
+            idx =i;
+        }
+    }
+    return idx;
+
+
+}
+TreeNode * construct(int &idx , int start , int end , vector<int>&in, vector<int>&posto){
+   if(start > end  || idx <0){
+    return NULL;
+   }
+   
+    int elem = posto[idx--];
+   TreeNode * root = new TreeNode(elem);
+    int pos = searchPos(elem , in , start,end);
+     root->right =construct(idx, pos+1 , end , in ,posto);
+    root->left = construct(idx , start , pos-1,in,posto);
+   
+    return root;
+}
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+         int size = postorder.size();
+        int idx=size-1;
+        return construct(  idx ,0 ,size-1,inorder, postorder);
+    }
+};

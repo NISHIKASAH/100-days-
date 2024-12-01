@@ -1,0 +1,75 @@
+question : snake and ladders 
+
+intution : we start from 1  , using bfs we are getting the min 
+steps required to reach the last box  ,  and for each cell we have 6 option 
+and the roll dice(value)  coordinate is found and check if snake or ladder
+(its has its value we place the value in queue) if its -1 then the value which we calacuated is push  
+after level is completed step++.
+example : 
+Input: board = [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],
+[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]
+Output: 4
+Explanation: 
+In the beginning, you start at square 1 (at row 5, column 0).
+You decide to move to square 2 and must take the ladder to square 15.
+You then decide to move to square 17 and must take the snake to square 13.
+You then decide to move to square 14 and must take the ladder to square 35.
+You then decide to move to square 36, ending the game.
+This is the lowest possible number of moves to reach the last square, so return 4.
+
+
+//-------------------------------------------------------//
+
+class Solution {
+public:
+    int n, m;
+    pair<int, int> getcoordinate(int num) {
+        int rowTop = (num - 1) / n;
+        int rowbtm = (n - 1) - rowTop;
+        int colLtoR = (num - 1) % n;
+        if ((n % 2 == 1) and (rowbtm % 2 == 1) || (n % 2 == 0) and 
+            rowbtm % 2 == 0) {
+            colLtoR = (n - 1) - colLtoR; // for colRtoL //cuz num are following zig-zag pattern
+        }
+        return make_pair(rowbtm, colLtoR);
+    }
+    int snakesAndLadders(vector<vector<int>>& board) {
+        n = board.size();
+        m = board[0].size();
+        queue<int> q;
+        vector<vector<int>> visited(n, vector<int>(m, false));
+        q.push(1);
+        int step = 0;
+        while (!q.empty()) {
+            int N = q.size();
+            while (N--) {
+                int elem = q.front();
+                q.pop();
+                if (elem == n * m) {
+                    return step;
+                }
+                for (int i = 1; i <= 6; i++) {
+                    int nextelem = elem + i;
+                    if (nextelem > n * m) {
+                        break;
+                    }
+                    pair<int, int> coord = getcoordinate(nextelem);
+                    int r = coord.first;
+                    int c = coord.second;
+                    if (visited[r][c] == true) {
+                        continue;
+                    }
+                    visited[r][c] = true;
+                    if (board[r][c] != -1) {
+                        q.push(board[r][c]);
+
+                    } else {
+                        q.push(nextelem);
+                    }
+                }
+            }
+            step++;
+        }
+        return -1;
+    }
+};

@@ -1,0 +1,64 @@
+question : when a single bombs is destroyed , its destroyes bombs which comes in 
+contact with it , so find the maximum effect bombs from that 1 single effected bulb , 
+
+
+intutition : make a adjacent matrix  , which contct elem that can destroy other bombs 
+like 2 and its adj is 4 ,6,9 i.e if 2 is destroyed, it can destroy its adjecent
+now to get adjacent -get the dist of two  point , if dist  <= r*r of ith bomb that mean ith bomb can desroy jth bombs
+put its on adj[i].push_back(j);
+and using dfs visted each node and its  neighbours ,and make them visted , 
+for each node  get count of how many bombs its destroyed(from viisted.size())
+
+
+//--------------------------------------------------//
+
+class Solution {
+public:
+typedef long long ll;
+
+    void dfs(int node, unordered_set<int>& visited, vector<int> adj[]) {
+        visited.insert(node);
+        for (auto it : adj[node]) {
+            if (visited.find(it) == visited.end()) {
+                dfs(it, visited, adj);
+            }
+        }
+    }
+
+    int maximumDetonation(vector<vector<int>>& bombs) {
+        int n = bombs.size();
+
+        vector<int> adj[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j)
+                    continue;
+                ll x1 = bombs[i][0];
+                ll y1 = bombs[i][1];
+                ll  r1 = bombs[i][2];
+
+                ll x2 = bombs[j][0];
+                ll  y2 = bombs[j][1];
+                ll r2 = bombs[j][2];
+                ll  dist = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+                if (r1 * r1 >= dist) {
+                    // for the range of ith bomb , j an be detonate
+                    adj[i].push_back(j);
+                }
+            }
+        }
+
+        int result = 0;
+        unordered_set<int> visited;
+        for (int i = 0; i < n; i++) {
+            dfs(i, visited, adj);
+            int count = visited.size();
+            result = max(result, count);
+            visited.clear();
+        }
+        return result;
+
+    }
+
+}
+;

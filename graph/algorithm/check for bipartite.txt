@@ -1,0 +1,37 @@
+question  - check if a graph can be filled but adjacent node with differnt color , 
+use of 2 color only if node 2 is 1 then 1-3 need to be 0
+
+
+intution - traverse through each node , and mark visisted with current color, 
+and from next node make color is !color and check .use dfs for traversal
+
+
+//------------------------------------------------------------------//
+
+class Solution {
+public:
+ bool dfs(int node,int nextcol,vector<int>adj[],vector<int>&color){
+        color[node] = nextcol;
+        for(auto it:adj[node]){
+            if(color[it]==-1){
+                if(dfs(it,!nextcol,adj,color) == false) return false;
+            }
+            else if(color[it] == color[node]) return false;
+            
+        }
+        return true;
+    }
+	bool isBipartite(int V, vector<int>adj[]){
+	    
+        vector<int>color(V,-1);
+        for(int i=0;i<V;i++){
+            if(color[i] == -1){
+               if(dfs(i,0,adj,color) == false){
+                   return false;
+               }
+            }
+        }
+        return true;
+	}
+
+};

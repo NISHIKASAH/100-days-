@@ -1,0 +1,53 @@
+question : match string and goal by swapping char ,
+swapping is must between diff characters
+
+intitution :  if s == goal , then check if any char appear more
+than 1 ,so they can be swap  and return true , 
+when char and not same  , then compre s and goal at index  , 
+if they are not same ,i.e they can be swap to make same  , 
+store their index  , if size of index vector is 2 then s can be swap to match goal
+
+think of this 3 cases : 
+s - aa , goal -aa  they can be swapped
+s-ab , goal - ab  ,they cannot be swapped , since they idx of char 
+are also same
+s-ba  , goal - ab they can be swapped
+
+//---------------------------//
+
+ class Solution {
+public:
+bool findfreq(string s){
+    unordered_map<char,int>mp;
+    for(int i=0;i<s.length();i++){
+        mp[s[i]]++;
+    }
+    for(auto it:mp){
+        if(it.second>1){
+            return true;
+        }
+    }
+    return false;
+}
+    bool buddyStrings(string s, string goal) {
+        int len1 = s.length();
+        int len2 = goal.length();
+        if(len1  != len2){
+            return false;
+        }
+        if(goal == s){
+            return findfreq(s);
+        }
+        vector<int>index;
+        for(int i=0;i<s.length();i++){
+            if(s[i]!= goal[i]){
+                index.push_back(i);
+            }
+        }
+        if(index.size() !=2){
+            return false;
+        }
+        swap(s[0] , s[1]);
+        return goal == s;
+    }
+};

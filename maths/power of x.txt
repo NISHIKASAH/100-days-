@@ -1,0 +1,33 @@
+question : find power of a number . 
+
+intution : if power is odd then  muntiply base to ans  and reduce power by 1 , 
+and  if power is even muntiply base with base  , and dividepower by 2 . 
+
+if power was negative then ans must be 1/ans kind  ,so get ans in double. 
+Nte : if power is negative  , store the positive form of power , while return do get doule if 1/ans
+
+//----------------------------------//
+
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+       double ans = 1.0;
+      long long nn = n;
+      if (nn < 0) nn = -1 * nn;
+      while (nn) {
+          //odd
+        if (nn % 2) {
+          ans = ans * x;
+          nn = nn - 1;
+        } 
+          //even
+          else {
+          x = x * x;
+          nn = nn / 2;
+        }
+      }
+      if (n < 0) ans = (double)(1.0) / (double)(ans);
+      return ans;
+    }
+};

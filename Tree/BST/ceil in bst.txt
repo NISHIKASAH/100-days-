@@ -1,0 +1,26 @@
+
+
+// User function Template for C++
+
+// Function to return the ceil of given number in BST.
+int findCeil(Node* root, int input) {
+    int myceil = -1;
+    while(root){
+        if(input  == root->data) {
+        myceil = root->data;
+        }
+        if(input > root->data){
+            root = root->right;
+        }
+        else{
+            myceil = root->data;
+            root = root->left;
+        }
+    
+    }
+    return myceil;
+    
+    
+}
+
+and for floor ,FIRST move left and for right store value and move right

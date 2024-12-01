@@ -1,0 +1,31 @@
+question : rotate the array .  rightside rotation .
+
+intution : start from 0,n-1 , then k , n-1, then 0 to k-1.
+
+//------------------------------------------/
+
+class Solution {
+public:
+void rotating(vector<int>&nums , int start,int end){
+   while(start<=end){
+       swap(nums[start] , nums[end]);
+       start++;
+       end--;
+   }
+    return ;
+}
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        if(k<=0) return ;
+        k = k%n;
+        rotating(nums ,0,n-1);
+        rotating(nums,k , n-1);
+        rotating(nums,0,k-1);
+        return ;
+        
+    }
+};
+
+
+
+                        

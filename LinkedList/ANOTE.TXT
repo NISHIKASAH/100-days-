@@ -1,0 +1,7 @@
+note1 :here node are 1 index based . 
+
+note2 : when creating new list , then dummy node is required . 
+nhi toh simple node se iteration ho jati h ,by pointing to nodes.
+
+
+note3 :

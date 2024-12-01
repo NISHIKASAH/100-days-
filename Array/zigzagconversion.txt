@@ -1,0 +1,39 @@
+question  : is to print the char which follow a zig-zag pattern .
+
+intution : create a vector and a variable that keep track in which char is placed .
+use a variable to check the drn when row ==0  || row ==n-1; then drn *= -1; 
+simply add ans[row].push_back(arr[i])  and increaemt row . 
+
+and print data for each row.
+
+//-------------------------------------------------//
+
+ string convert(string s, int n) {
+        int len = s.length();
+         if(n == 1){
+            return s;
+        }
+        if(len<=n) {
+            return s;
+        }
+       
+        vector<char>RowElem[n];
+        int drn = -1;
+        int row = 0;
+        for(auto c:s){
+            RowElem[row].push_back(c);
+            if(row == 0 || row == n-1){
+                drn *= -1;
+            }
+            row += drn; //row value will increment when row ==0 and decreemnt when row == n-1
+
+        }
+        string res= "";
+        for(auto it:RowElem){
+            for(auto i: it){
+                res += i;
+            }
+        }
+        return res;
+    }
+};

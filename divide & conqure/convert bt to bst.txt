@@ -1,0 +1,33 @@
+question : convert bt to bst;
+
+
+intution  : get mid elem of array as root and call recursive for its root->left and 
+root->right.
+
+//---------------------------------------------//
+
+class Solution {
+public:
+
+TreeNode * mergesort( int start , int end , vector<int>&nums){
+    if(start > end){
+        return 0;
+    }
+    int mid = (start+end)/2;
+    TreeNode * root  = new TreeNode(nums[mid]);
+    root->left = mergesort(start , mid-1 , nums);
+    root->right = mergesort(mid+1 , end , nums);
+    return root;
+    
+}
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        if(nums.size() == 0){
+            return NULL;
+        }
+        int mid = nums.size()/2;
+        return mergesort(0 , nums.size()-1 ,nums);
+       
+
+        
+    }
+};

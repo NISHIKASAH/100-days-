@@ -1,0 +1,43 @@
+question : reverse a linkedlist with given start and end position .
+
+intution : store node into array and swap the array from given position 
+and again  build linkedlist after reverse node.
+
+//------------------------------------------------//
+
+
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        vector<int>ans;
+        ListNode * curr =head;
+        int len = 0;
+        while(curr!=NULL){
+            len++;
+            ans.push_back(curr->val);
+            curr = curr->next;
+
+        }
+        if(left ==0 and right == 0) return head;
+        left--;
+        right--;
+        while(left<right){
+            swap(ans[left],ans[right]);
+            left++;
+            right--;
+        }
+        ListNode * dummy = head;
+        ListNode * temp = dummy;
+        for(int i=0;i<len; i++){
+            ListNode * nodele = new ListNode(ans[i]);
+            temp->next = nodele;
+            temp = temp->next;
+
+        }
+        return dummy->next;
+
+        
+
+
+    }
+};

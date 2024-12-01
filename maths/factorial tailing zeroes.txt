@@ -1,0 +1,21 @@
+question  : how many zeroes are in factorial of a number . 
+
+
+intution : if a number has 2 and 5 its has 1 zeroes , so its has 5 its must have 2 , 
+so just check how many 5 a no has  , look for only muntiple of 5 . 
+exammple  n/5 , n/25 , n/125  n/25 has two 5  make count of 5;and its muntilple.
+
+
+//--------------------------------------------//
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        int count =0;
+        for(int i=5;i<=n ;i=i*5){
+            count += n/i; 
+
+
+        }
+        return count;
+    }
+};

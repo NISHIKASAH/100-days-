@@ -1,0 +1,47 @@
+question : minimize the weight to carry all load to ship  within D days
+
+intution : weight = getting the max weight  , 
+or high can go for sum of all weight now minimize this  , with limit of D days
+
+//note : BOOK Allocation and Painters problem is also done exactly same.
+//--------------------------------//
+
+class Solution {
+public:
+    int checkmincapacity(vector<int>&weight,int mid,int days){
+        int count=1,sum=0;
+        
+        for(int i=0;i<weight.size();i++){
+            sum+=weight[i];
+            if(sum>mid){
+                count++;
+                sum=weight[i];
+            }
+        }
+        if(count<=days)
+            return true;
+        return false;
+    }
+    int shipWithinDays(vector<int>& weights, int days) {
+         int maxCapacity=0;
+        int n=weights.size();
+        
+        for(int i=0;i<n;i++)
+            maxCapacity+=weights[i];
+        
+        int low=*max_element(weights.begin(),weights.end()),high=maxCapacity;
+        int result;
+        
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(checkmincapacity(weights,mid,days)){
+                result=mid;
+                high=mid-1;
+            }
+            else
+                low=mid+1;
+        }
+        return result;
+    }
+};
+

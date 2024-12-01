@@ -1,0 +1,24 @@
+question : count node in bt.
+
+intution : do inorder and for each node increment  count .
+
+
+//-----------------------------------------//
+
+class Solution {
+public:
+void solve(TreeNode* root, int &count){
+     if(root == NULL) return ;
+    
+       solve(root->left,count);
+         count++;
+      
+    solve(root->right,count);
+        
+}
+    int countNodes(TreeNode* root) {
+        int count =0 ;
+       solve(root,count);
+        return count;
+    }
+};

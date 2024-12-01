@@ -1,0 +1,55 @@
+//find the median of two sorted array . 
+
+inution : partition both element into two part and
+through partition get edge elem of 4 array formed.
+and check cross edge of left is smaller than right 
+that means we got the sorted array and we can get the median .
+for even len median can be found by sum and div max of left and min of right 
+and for odd get max of left.
+
+//idea : we are using bs bcoz we are partition array with first 1 elem and then
+continously going for 2 ,3,4 in linear order.
+so try to partition smaller length elem.
+
+//-----------------------------------------------------------//
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        if (n1 > n2) {
+            return findMedianSortedArrays(nums2, nums1);
+            //will do partition for smaller array len
+        }
+        int low = 0;
+        int high = n1;
+        int ans = 0;
+        while (low <= high) {
+            int px = low + (high-low)/2;
+            int py = (n1+n2+1)/2-px; //deal with both even and odd len.
+            // left half
+            int x1 = (px == 0) ? INT_MIN : nums1[px - 1];
+            //picking no elem from left then return -infinity.
+            int x2 = (py ==0) ? INT_MIN : nums2[py - 1];
+            // right half
+             //picking no elem from right then return +infinity.
+            int x3 = (px == n1)? INT_MAX : nums1[px];
+            int x4 = (py == n2)? INT_MAX : nums2[py];
+            //mean partition for a sorted array 
+            if (x1 <= x4 and x2 <= x3) {
+                if ((n1 + n2) % 2 == 0) { //when even len array
+                   return (max(x1, x2) + min(x3, x4)) / 2.0;
+                }
+                else{
+                   return max(x1,x2);
+                }
+            } else if (x1 > x4) {
+                high = px - 1; //reducing no from left partition
+            } else {
+                low = px + 1;  
+            }
+        }
+        return -1;
+    }
+};

@@ -1,0 +1,25 @@
+question : return the total number of subarrays whose sum equals to k.
+
+intution : for sum =0 will map[sum] = 1; ,to resolve sum = 0 case 
+and will keep on mapping for sum += nums[i] , when we found sum-k in mp , will 
+will add  sum-k from map 
+
+//---------------------------------//
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int,int>mp;
+        int sum = 0;
+        mp[sum ] = 1;
+        int count = 0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            if(mp.find(sum-k)!=mp.end()){
+                count+=mp[sum-k];
+            }
+            mp[sum]++;
+        }
+        return count;
+    }
+};

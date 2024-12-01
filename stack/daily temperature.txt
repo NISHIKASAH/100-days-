@@ -1,0 +1,84 @@
+question : how many days to wait from ith day to get warmer .
+if no possible warmer day in future then at ith day  put 0
+
+
+example : Input: temperatures = [73,74,75,71,69,72,76,73]
+Output: [1,1,4,2,1,1,0,0]
+
+intution : at ith pos  , look for the right elem(in stack ) if elem bigger is found put
+by how index its bigger (st.top()-i) 
+else pop -no future warmer elem found
+(Finding the next greater element)
+
+
+//-----------------------------------//
+
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& nums) {
+        stack<pair<int,int>>st;
+        int n = nums.size();
+        vector<int>ans(n , 0);
+        for(int i=nums.size()-1;i>=0;i--){
+           
+           
+                while(!st.empty() and st.top().first <= nums[i]){
+                    st.pop();
+
+                }
+                if(!st.empty()){
+                    ans[i] = st.top().second-i;
+
+                }
+                st.push({nums[i] , i});
+            
+                
+            
+        }
+        return ans;
+    }
+};
+
+//by just storing index
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temp) {
+     
+        stack<int>st;
+        int n = temp.size();
+           vector<int>ans(n,0);
+        for(int i=n-1 ;i>=0;i--){
+            while(!st.empty() and temp[st.top()] <= temp[i]){
+                st.pop();
+            }
+           if(!st.empty()){
+            ans[i] = st.top()-i;
+           }
+           st.push(i);
+
+        }
+        return ans;
+    }
+};
+
+
+
+//for circular condition : 
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        stack<int>st;
+        int n = nums.size();
+        vector<int>ans(n ,-1);
+        for(int i=2*n-1 ;i>=0;i--){
+            while(!st.empty()  and st.top() <= nums[i%n]){
+                st.pop();
+            }
+            if(!st.empty()){
+                ans[i%n] = st.top();
+            }
+            st.push(nums[i%n]);
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,27 @@
+question : find maxpath sum  , it may include root node or not.
+
+intution : to overcome negative  get left and right call with  0 , maxsumpath  
+and take reference of ans  , that while return store root->val + left + right 
+and function call return max(left , right) + root->val of each call .
+
+
+//--------------------------------------------------//
+
+
+class Solution {
+public:
+    int solve(TreeNode * root,int &ans){
+        if(root == NULL){
+            return 0;
+        }
+        int left = max(0,solve(root->left,ans));
+        int right = max(0,solve(root->right,ans));
+        ans = max(ans,(left+right+root->val));
+        return root->val + max(left,right);
+    }
+    int maxPathSum(TreeNode* root) {
+        int ans  = INT_MIN;
+        solve(root,ans);
+        return ans;
+    }
+};

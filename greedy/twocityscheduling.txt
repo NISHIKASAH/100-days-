@@ -1,0 +1,35 @@
+question : return minimum cost to send person to city such that exactly 
+n person arrive in  n city i.e  half in city A and half in city B 
+
+example : Input: costs = [[259,770],[448,54],[926,667],[184,139],[840,118],[577,469]]
+Output: 1859
+intution : how much profit are u making by choose A over B ticket cost
+ [259 , 770] - if choose A then profit made is 770-259 
+ sort the array based on  decreasing in profit , 
+ for start ,choose city A where cost of A ticket is less . 
+ and for other choose city B 
+
+ /---------------------------------------/
+
+ class Solution {
+public:
+static bool comp(vector<int>&a, vector<int>&b){
+   return a[1]-a[0]  > b[1]-b[0];
+ }
+    int twoCitySchedCost(vector<vector<int>>& costs) {
+        int n = costs.size();
+
+       sort(costs.begin(),costs.end() ,comp);
+
+       int sum =0 ;
+       for(int i=0;i<n;i++){
+        if(i<n/2){
+            sum+= costs[i][0];
+        }
+        else{
+            sum += costs[i][1];
+        }
+       }
+       return sum;
+    }
+};

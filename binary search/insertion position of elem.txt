@@ -1,0 +1,30 @@
+question : find the position where target elem is found or can be inserted . 
+
+
+intution : if target == arr[mid] then return nhi toh store ans = mid+1 and same khandaani 
+bs approach . 
+
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int n = nums.size();
+        long long low = 0;
+        long long high = n-1;
+        int ans= 0 ;
+        while(low<=high){
+            long long mid = (low+high)/2;
+            if(nums[mid] ==target){
+                return mid;
+            }
+            else if(nums[mid]<target){
+                ans = mid+1;
+                low = mid+1;
+            }
+            else{
+                high = mid-1;
+            }
+        }
+        return ans;
+        
+    }
+};

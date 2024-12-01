@@ -1,0 +1,31 @@
+question  : finding elem in 2d matrix . 
+
+intution  : search in row and colum of 2d is using mid/col , mid%col  
+and khandaani bs 
+
+//---------------------------------------//
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(!matrix.size()){
+            return false;
+        }
+        int row = matrix.size();
+        int col = matrix[0].size();
+        int low,hi,mid;
+        low =0 ,hi = (row*col)-1;
+       
+        while(low<=hi){
+             mid = (low+hi)/2;
+            if(target == matrix[mid/col][mid%col]) return true;
+            else if(target > matrix[mid/col][mid%col]){
+                low = mid+1;
+            }
+            else {
+                hi = mid-1;
+            }
+        }
+        return false;
+    }
+};

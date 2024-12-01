@@ -1,0 +1,63 @@
+question : how much water can be collected . 
+
+intuion : get max hieght for left and right side , and from their
+get the min height and remove the building heght of arr[i] to get how 
+much water cn be contain if we considered hieght arr[i]
+
+//------------------------------------------------//
+
+
+class Solution {
+public:
+
+    int trap(vector<int>&arr) {
+        int n = arr.size();
+       vector<int>left(n),right(n);
+       left[0] = arr[0];
+       for(int i=1;i<n;i++){
+        left[i] = max(left[i-1] , arr[i]);
+
+       }
+    right[n-1] = arr[n-1];
+    for(int i=n-2;i>=0;i--){
+        right[i] = max(right[i+1] , arr[i]);
+    }
+    int ans= 0 ;
+    for(int i=0;i<n;i++){
+        ans += min(left[i] ,right[i])-arr[i];
+
+    }
+       return ans;
+    }
+};
+
+//-------------------OR-------------------------//
+
+class Solution {
+public:
+    int trap(vector<int>& arr) {
+       int total=0;
+        int right = INT_MIN;
+        int left = INT_MIN;
+       int n = arr.size();
+        for(int i=1;i<arr.size();i++){
+            int j = i;  
+            left = arr[i];
+            while(j>=0){
+                left = max(left , arr[j]);
+                j--;
+            }
+            
+             int k = i;
+             right = arr[i];
+             while(k<n){
+                right = max(right , arr[k]);
+                k++;
+             }
+
+             total += min(left ,right)-arr[i];
+
+        }
+        return total ;
+    }
+};

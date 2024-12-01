@@ -1,0 +1,33 @@
+question : find the merge interval  of array  . 
+
+example :  Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+Output: [[1,5],[6,9]]
+
+intution : if they merge  , then update the temp[1]= with max(temp[1], curr[1])
+if they don't merge  , that mean we can directly push temp in ans . 
+and make temp now point to curr.
+remember to sort first to find merge intervals.
+//----------------------------------------------------------//
+
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>>ans;
+        intervals.push_back(newInterval);
+        sort(intervals.begin(),intervals.end());
+        vector<int>temp = intervals[0];
+        for(int i=1;i<intervals.size();i++){
+            vector<int>curr = intervals[i];
+            if(temp[1]>=curr[0]){
+                temp[1]  = max(curr[1],temp[1]);
+                
+            }
+            else{
+                ans.push_back(temp);
+                temp = curr;
+            }
+        }
+        ans.push_back(temp);
+        return ans;
+    }
+};

@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void solve(TreeNode* root,TreeNode *&prev,int &ans){
+        if(root==NULL) return ;
+        solve(root->left,prev ,ans);
+        if(prev){
+             ans = min(ans,root->val - prev->val);
+        }
+       
+        prev = root;
+        solve(root->right,prev,ans);
+        
+    }
+    int getMinimumDifference(TreeNode* root) {
+        
+        int ans = INT_MAX;
+        TreeNode * prev = NULL;
+        solve(root,prev,ans);
+        return ans;
+        
+    }
+};

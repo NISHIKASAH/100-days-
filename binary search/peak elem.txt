@@ -1,0 +1,40 @@
+question : find peak element  . 
+
+intution  : if mid =0 then check if o or 1 can be ans , 
+if mid==n-1 then n-1 or n-2 can be ans , if mid-1 <mid >mid+1 then mid , 
+nhi toh mid-1 < mid then move start = mid+1.
+
+
+//-------------------------------------------//
+
+class Solution {
+public:
+    int findPeakElement(vector<int>& arr) {
+        int n = arr.size();
+        int start = 0, end = n - 1;
+
+  while (start < end) {
+    int mid = (start + end) / 2;
+
+    if (mid == 0)
+      return arr[0] > arr[1] ? 0:1;
+
+    if (mid == n - 1)
+      return arr[n - 1] > arr[n-2]?n-2:n-1;
+
+   
+    if (arr[mid] > arr[mid - 1] && arr[mid] > arr[mid + 1])
+      return mid;
+
+   
+    if (arr[mid-1] < arr[mid])
+      start = mid+1;
+
+   
+    else
+     end  = mid-1;
+  }
+
+  return start;
+    }
+};

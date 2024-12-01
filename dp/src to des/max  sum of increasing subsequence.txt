@@ -1,0 +1,67 @@
+question : find maximumsum subsequence in a array 
+example : N = 5, arr[] = {1, 101, 2, 3, 100} 
+Output: 106
+
+
+intution : use button up dp , consider i to be end of subsarray , 
+and for each i start j from 0to j<i 
+and if j elem is smaller , this can be added to subsequecne ,
+if(arr[j] < arr[i] and dp[j] + arr[i] > dp[i]){
+    dp[i]=  dp[j] + arr[i];
+}
+dp initial value will i elem of array 
+this dp store the sum of all subsequecne  , return the max elem from dp;
+
+//---------------------------------//
+
+
+class Solution{
+		
+
+	public:
+	int maxSumIS(int arr[], int n)  
+	{  
+	   
+	   vector<int>dpsum(n,0);
+	    for(int i=0;i<n;i++){
+	        dpsum[i] = arr[i];
+	    }
+	    for(int i=1;i<n;i++){
+	        for(int j=0;j<i;j++){
+	          if(arr[i] > arr[j] and dpsum[i] < dpsum[j] + arr[i] ){
+	          
+	                  dpsum[i] = dpsum[j] + arr[i];
+	              
+	          }
+	        }
+	    }
+	    return *max_element(dpsum.begin() , dpsum.end());
+	}  
+};
+
+
+queston : find the longest increasing subsequence 
+
+intution : we  have to create a dp , but here we are storing not sum , but how len which keep 
+on incresing by 1;
+
+//----------------------------//
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int  n = nums.size();
+      vector<int>dp(n,1);
+      for(int i=1;i<n;i++){
+        for(int j=0;j<i;j++){
+            if(nums[i] > nums[j]){
+                dp[i]  = max(dp[i] , dp[j]+1);
+            }
+        }
+      }
+      return *max_element(dp.begin() , dp.end());
+
+    }
+};
+
+

@@ -1,0 +1,51 @@
+question : find the minimum no of moves required to find
+the floor from which if egg falls  , then its wont break
+remember  - if egg fall from i floor its wont break from any other floor
+
+intution : since we have to find the minimum no of moves , we are talking of
+worst case to find the floor  ,
+to find the floor will have to break keep breaking the egg from each floor 
+and after each floor will take out the worst case by getting maximum possible moves required  
+, now will minimizethismove  , by storing in a variable  and store this in dp 
+after completion of iteration.
+
+
+//---------------------------------//
+
+
+class Solution
+{
+    public:
+    //Function to find minimum number of attempts needed in 
+    //order to find the critical floor.
+    int dp[201][201];
+ 
+    int solve(int n , int k  ){
+        if(n==1){
+            return k;
+        }
+        if(k==0){
+            return 0;
+        }
+        if(dp[n][k]!=-1){
+            return dp[n][k];
+        }
+    
+       int minimizedmove = INT_MAX;
+        for(int i=1;i<=k;i++){
+            int notbreaking = solve(n, k-i);
+            int breaking = solve(n-1, i-1);
+            int worsAttemps = max(breaking , notbreaking);
+             minimizedmove = min(minimizedmove ,worsAttemps+1 );
+            
+        }
+       
+        return dp[n][k] = minimizedmove;
+    }
+    int eggDrop(int n, int k) 
+    {
+        memset(dp , -1,sizeof(dp));
+        return solve(n , k);
+        
+    }
+};

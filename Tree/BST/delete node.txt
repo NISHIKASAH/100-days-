@@ -1,0 +1,46 @@
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root == NULL) return root;
+        if(root->val > key){
+            root->left = deleteNode(root->left,key);
+        }
+        else if(root->val < key ){
+            root->right = deleteNode(root->right,key);
+        }
+        else{
+            if(!root->left and !root->right){
+                delete root;
+                return NULL;
+            }
+            if(root->left){
+                int prec = predecessor(root->left);
+                root->val = prec;
+                root->left = deleteNode(root->left,prec);
+                
+            }
+            else{
+                int succ = successor(root->right);
+                root->val = succ;
+                root->right = deleteNode(root->right,succ);
+            }
+        }
+        return root;
+        
+        
+    }
+public:
+    int predecessor(TreeNode* root){
+        while(root->right){
+            root = root->right;
+        }
+        return root->val;
+    }
+    int successor(TreeNode* root){
+        while(root->left){
+            root = root->left;
+        }
+    return root->val;
+    }
+    
+};

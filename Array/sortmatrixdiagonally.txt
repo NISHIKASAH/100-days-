@@ -1,0 +1,38 @@
+leetcode : 1329
+sort diagonal elem of 2d matrix.
+
+thing to remember : whenever dealing with diagonal matrix  , 
+for upward diagonal use matrix[i+j]  to get elem .
+and for downward use matrix[i-j].
+
+inution : sort the elem in map  using i-j trick and sort the elem
+and now to created matrix.
+iterate from back of map (easy to acces and keep tract of each elem in sorted order,
+for this placing elem in matrix is also from lastindex)
+
+//------------------------------------------------------------//
+
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        int n = mat.size();
+        int m = mat[0].size();
+        unordered_map<int, vector<int>>mp;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                mp[i-j].push_back(mat[i][j]);
+            }
+        }
+        for(auto &it : mp){
+            sort(it.second.begin() , it.second.end());
+        }
+        vector<vector<int>>ans(n,vector<int>(m));
+        for(int i=n-1;i>=0;i--){
+            for(int j=m-1;j>=0;j--){
+                ans[i][j]=mp[i-j].back();
+                mp[i-j].pop_back();
+            }
+        }
+        return ans;
+    }
+};   

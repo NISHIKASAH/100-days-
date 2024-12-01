@@ -1,0 +1,39 @@
+question : keep adding the digits from root to leaf ,when reach to leaf 
+then add the digit to ans ,and this for all path  of tree and return the totalsum . 
+
+example : 
+Input: root = [4,9,0,5,1]
+Output: 1026
+Explanation:
+The root-to-leaf path 4->9->5 represents the number 495.
+The root-to-leaf path 4->9->1 represents the number 491.
+The root-to-leaf path 4->0 represents the number 40.
+Therefore, sum = 495 + 491 + 40 = 1026.
+
+
+intution : keep a temp value to keep adding the digits (temp = temp*10 + root->val), if it reach 
+leaf node  , its add the digit and get sum += temp .
+
+//-------------------------------------------//
+
+#define ll long long
+class Solution {
+public:
+          void dfs(TreeNode *root, ll &ans , ll tmp){
+        if(root->left== NULL && root->right==NULL){
+            tmp = tmp*10 + root->val;
+            ans+=tmp;
+            return;
+        }
+        tmp = tmp*10 + root->val;
+        if(root->left) dfs(root->left,ans,tmp);
+        if(root->right) dfs(root->right,ans,tmp);
+    }
+
+    int sumNumbers(TreeNode* root) {
+        ll ans =0;
+        dfs(root,ans,0);
+        return int(ans);
+    
+    }
+};

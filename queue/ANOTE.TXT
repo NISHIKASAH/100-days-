@@ -1,0 +1,6 @@
+MIN-HEAP : prority _queue<int> , vector<int>,greater<int>>pq 
+this heap will store smallest elem on top .
+
+max-heap : prority_queue< integer>,vector<int>>pq 
+this heap will store larger element on top .
+

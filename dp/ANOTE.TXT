@@ -1,0 +1,18 @@
+when ur search for some character or some obstacle  in 4drn of matrix, always mention is opposite 
+senerio in edge case , 
+so to prevent what if char is found(this can be handle by all 4 drn )
+
+example : search for elem in matrix. 
+if(i<0 || i>=row || j<0 || j>=col || grid[i][j] != word[idx]){
+    return  false; //this is going to handle false scenerio
+}
+now u will defenity find search character in 4 drn . //this handle true scenerio.
+int temp = board[i][j];
+        board[i][j] = ' ';
+        bool ans = dfs(idx+1,i+1,j,row,col,board,word) 
+            || dfs(idx+1,i-1,j,row,col,board,word) 
+            || dfs(idx+1,i,j+1,row,col,board,word)
+            || dfs(idx+1,i,j-1,row,col,board,word);
+        
+        board[i][j] = temp;
+        return ans;

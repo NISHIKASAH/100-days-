@@ -1,0 +1,50 @@
+question : find no of land we cannot walk of , 
+grid[i][j] =1 represent land and 0 represent water
+
+intitution : will start traversal from land attach to  boundary , 
+keep a visited array to make those land which are visited
+after completion  of traversal  ,will check if its a land bit couldnot vist then make count of its 
+
+
+//-------------------------------//
+class Solution {
+public:
+int row;
+int  col;
+void dfs(int i , int j ,vector<vector<int>>& grid ,  vector<vector<int>>&vis  ){
+  
+
+    if(i <0 || i==row || j<0  || j==col  || vis[i][j] == 1 || grid[i][j] == 0) return  ;
+        vis[i][j] = 1; 
+    dfs(i , j-1 , grid , vis);
+    dfs(i-1, j , grid , vis);
+     dfs(i , j+1 , grid ,vis);
+    dfs(i+1 , j , grid,vis);
+   
+   
+
+    
+}
+    int numEnclaves(vector<vector<int>>& grid) {
+        row = grid.size();
+        col = grid[0].size();
+        vector<vector<int>>vis(row , vector<int>(col ,-1));
+        for(int i=0;i<row; i++){
+            for(int j = 0;j<col ; j++){
+                if( (i==0 || i== row-1 || j == 0  || j== col-1 ) and grid[i][j] == 1){
+                    dfs(i ,j , grid , vis );
+                }
+            }
+        }
+        int count=0;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col ; j++){
+                if(grid[i][j] == 1 and vis[i][j] == -1){
+                    count++;
+                }
+            }
+        }
+        return count;
+        
+    }
+};

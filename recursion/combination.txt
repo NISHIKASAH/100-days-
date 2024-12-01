@@ -1,0 +1,32 @@
+question : find all possible combination to meet the target.
+
+inution : use khandaani approach of ds , ans with take nottake.
+
+//---------------------------------------//
+class Solution {
+public:
+    void solve(int idx,vector<int>&candi,vector<int>ds,int target,vector<vector<int>>&ans){
+        if(idx>=candi.size()){
+            if(target == 0){
+                ans.push_back(ds);
+                return ;
+            }
+            else{
+                return;
+            }
+        }
+        solve(idx+1,candi,ds,target,ans);
+        if(candi[idx]<=target){
+            ds.push_back(candi[idx]);
+           solve(idx,candi,ds,target-candi[idx],ans);
+        }
+        
+        
+    }
+    vector<vector<int>> combinationSum(vector<int>& candi, int target) {
+        vector<vector<int>>ans;
+        vector<int>ds;
+        solve(0,candi,ds,target,ans);
+        return ans;
+    }
+};

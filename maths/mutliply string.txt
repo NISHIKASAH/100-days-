@@ -1,0 +1,33 @@
+question : "124" * "3455"
+
+idea : iterate from last of both string and hold the value in 1-D ans of size m+n , 
+i+j+1 mai remainder  and i+j mai question and erase 0 from starting
+
+//--------------------------------------//
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        int n = num1.size();
+        int m = num2.size();
+        if(num1 == "0" || num2 == "0") return "0";
+        vector<int>ans(n+m ,0);
+        for(int i=n-1;i>=0;i--){
+            for(int j=m-1;j>=0;j--){
+               ans[i+j+1] += (num1[i]-'0' )* (num2[j]-'0'); // adding to  muntiplication with prev digit
+               ans[i+j] += ans[i+j+1]/10; // carry of previous digit 
+               ans[i+j+1] = ans[i+j+1]%10; 
+
+            }
+        }
+        string res; 
+        int i=0;
+        while(i<ans.size() and ans[i] == 0 ){
+           i++;
+        } 
+        for( ;i<ans.size();i++){
+            res.push_back(ans[i]+'0');
+        }
+        return res;
+    }
+    
+};

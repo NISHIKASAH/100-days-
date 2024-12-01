@@ -1,0 +1,35 @@
+question - sum of  max elem from each array of 2D array
+Idea - to look for max of right side of array , store a varaible and
+ keep update after every iteration , with a new max-elem which is found
+keep a flag  make sure elem is add to sum  from every array ;
+
+
+example : Input : arr[ ] = {{1,7,4,3}, {4,2,5,1}, {9,5,1,8}}
+Output : 18
+/------------------------------/
+
+int maximumSum( int n,int m, vector<vector<int>> &arr) {
+    for(int i=0;i<n ;i++){
+        sort(arr[i].begin() , arr[i].end());
+    }
+    int sum = 0;
+    int flag = false;
+    int limit = INT_MAX;
+    for(int i = n-1;i>=0;i--){
+        flag = false;
+        for(int j=m-1;j>=0;j--){
+            if(arr[i][j] < limit){
+                sum += arr[i][j];
+                limit = arr[i][j];
+                flag = true;
+                break;
+            }
+        }
+        if(!flag){ //to check if add array ma ele is add to sum
+            return 0;
+        }
+        
+      
+    }
+    return  sum ;
+}

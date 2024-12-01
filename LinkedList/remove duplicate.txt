@@ -1,0 +1,38 @@
+question : remove all duplicate which has duplicates .
+
+intution : create a dummy node , iterate over linked  , when curr->next->val != curr->val then
+assigned prev = curr or else if they are same than move curr pointer and we reach to node
+after while loop failed where  this condn  fail curr->next->val != curr->val , make pointer of prev point to
+this (don't assigned prev with the node maybe this elem have duplicate elem in right side)
+
+
+
+about pointing : dummy ko point krne ke liye ek varaible
+ek head to point krne ke liye
+aur dummy->next mai head to dena h.
+//------------------------------------------------------------------//
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode * dummy = new ListNode(0);
+        ListNode * curr = head ;
+        dummy->next = head;
+        ListNode * prev = dummy;
+        while(curr!=NULL){
+            if(curr->next!=NULL and curr->next->val == curr->val){
+                while(curr->next !=NULL and curr->next->val == curr->val){
+                    curr = curr->next;
+                }
+                prev->next = curr->next;
+                curr = curr->next;
+            }
+            else{
+                prev =curr;
+                curr= curr->next;
+            }
+        }
+        return dummy->next;
+        
+    }
+};

@@ -1,0 +1,44 @@
+question  - suffle the array and give any other permutation of array
+
+example - 123 the ans can be any one of this 231,213 , 321 , 132 
+
+intution : create a string for storing new suffle  , get index using rand%arr.size()
+add index elem to ans string and swap index elem with last and remove to array
+do this array.size() ==0
+all elem are extracted to for new string of new permutation
+
+//--------------------------------//
+
+class Solution {
+public:
+vector<int>array ;
+vector<int>dummyarray;
+    Solution(vector<int>& nums) {
+        array =nums;
+        dummyarray = nums;
+    }
+    
+    vector<int> reset() {
+      array = dummyarray ;
+      return array;
+        
+    }
+    
+
+    vector<int> shuffle() {
+        array = dummyarray;
+        vector<int>ss;
+        int n = dummyarray.size();
+        while(array.size()){
+            int randomidx =rand()%array.size();
+            ss.push_back(array[randomidx]);
+            swap(array[randomidx] , array[array.size()-1]);
+            array.pop_back();
+
+
+        }
+        return ss;
+
+        
+    }
+};

@@ -1,0 +1,52 @@
+question : if path as /.../ and "/./"  write as usual  , if its as /../  then remove its parent directory 
+
+example : Input: path = "/.../a/../b/c/../d/./"
+
+Output: "/.../b/d"
+
+edge case :  "/../ " return "/"
+
+intution : if "/" ignore  , for  other concatenate the char and check if
+temp = "."  then  ignore  , ".."  then remove from stack  , nhi toh simply push in stack.
+remember  =  while making  ans  string  , "/" + st.top() + ans (we have to revese)
+
+//------------------------------------------------------------------//
+
+class Solution {
+public:
+    string simplifyPath(string s) {
+        int n= s.length();
+        stack<string>st;
+        for(int i=0;i<n;i++){
+            if(s[i] == '/'){
+                continue;
+            }
+            string temp = "";
+            while(i<n and s[i] != '/'){
+                temp += s[i];
+                i++;
+            }
+            if(temp == ".") continue;
+            else if(temp == "..") {
+                if(!st.empty()){
+                    st.pop();
+                }
+            }
+            else{
+                st.push(temp);
+            }
+
+
+        }
+        string ans ="";
+        while(!st.empty()){
+           ans = '/'+ st.top() +ans;
+           st.pop();
+
+        }
+        if(ans.size() == 0){
+            ans += '/';
+        }
+        return ans;
+    }
+};

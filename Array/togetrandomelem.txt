@@ -1,0 +1,35 @@
+question : to get random elem .
+
+intution : to get random elem ,get idx = rand()/sizeof set
+and using *next(st.begin() , idx)  get the random elem from set.
+
+//--------------------------------------------------------------//
+
+class RandomizedSet {
+public:
+set<int>st;
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        if(!st.count(val)){
+            st.insert(val);
+            return true;
+        }
+        else return false;
+    }
+    
+    bool remove(int val) {
+        if(st.count(val)){
+            st.erase(val);
+            return true;
+        }
+        else return false;
+    }
+    
+    int getRandom() {
+        int ra = rand()%st.size();
+        return *next(st.begin() , ra);
+    }
+};

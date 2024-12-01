@@ -1,0 +1,40 @@
+question : sum to leave node path . 
+
+inution : since we have to include left and right node element ,
+so the digit form must be from both side , to do so we have to mention 
+the condition above left and right call.
+
+
+//----------------------------------------------------------------------------//
+class Solution {
+public:
+int sum = 0;
+void solve( TreeNode * root ,int digits){
+    if(root ==NULL){
+            return ;
+        }
+        
+        if(root->left ==NULL and root->right == NULL){
+          digits = digits*10 + root->val;
+          sum += digits;
+          return;
+        }
+            digits = digits*10 + root->val;
+       
+        if(root->left){
+            
+            solve(root->left,digits);
+        }
+     
+        if(root->right){
+           
+           
+            solve(root->right,digits);
+        }
+}
+    int sumNumbers(TreeNode* root) {
+      solve(root ,0);
+      return sum;
+
+    }
+};

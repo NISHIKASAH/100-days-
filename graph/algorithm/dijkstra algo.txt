@@ -1,0 +1,77 @@
+question : to find the shortest distance(wt)  from source to all other node.
+
+intution : use a distance array to store dist of each node from source . 
+use priority queue to get mini dist during travesing 
+if dist of u (dis) + dist of v(wt) < dist[v] , then update dist[v] and push in que.
+
+//---------------------------------------//
+
+
+class Solution
+{
+	public:
+	//Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int s)
+    {
+        
+       priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        vector<int>dist(V , INT_MAX);
+        dist[s] = 0;
+        pq.push({0 , s});
+        while(!pq.empty()){
+            int d = pq.top().first;
+            int node = pq.top().second;
+            pq.pop();
+            for(auto &it : adj[node]){
+                int adjnode = it[0];
+                int wt = it[1];
+                if( d+ wt < dist[adjnode]){
+                    dist[adjnode] = wt+d;
+                    pq.push({d+wt, adjnode});
+                }
+            }
+        }
+        return dist;
+    }
+};
+
+
+//can be solve using set ,  instead of priority queue.
+
+intution : same as priority queue 
+to get elem from st , *st.begin() 
+
+//--------------------------------------------//
+
+class Solution
+{
+	public:
+	//Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int s)
+    {
+        
+        vector<int>dist(V,INT_MAX);
+        set<pair<int,int>>st;
+        st.insert({0 , s});
+        dist[s] = 0;
+        while(!st.empty()){
+            auto it = *st.begin();
+            int d = it.first;
+            int node = it.second;
+            st.erase(it);
+            for(auto nodelist : adj[node]){
+                int wt = nodelist[1];
+                int adjnode = nodelist[0];
+                if(wt + dist[node] < dist[adjnode]){
+                   dist[adjnode] = wt + dist[node];
+                   st.insert({wt+dist[node] , adjnode});
+                   
+                }
+            }
+        }
+        return dist;
+        
+    }
+};

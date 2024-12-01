@@ -1,0 +1,52 @@
+question : update the next generation of the board , using various condition given .
+to check cell neignour can search in all  8 drn (vertical , horixontal and diagonal); 
+condn are :  live - 1 and dead  - 0;
+if cell is live and its is sorrounded by less than 2  live cell or greater than 3 live cell will dies 
+if cell is live and is sorrounded by exaclty 2 or exaclty 3 live cell will get alive.
+if cell is dead and is sorrounded by 3 live cell will get alive .
+
+
+inutiton : for each cell we have to get countof its neighbour live cells to 
+update that cell , and to do that  , for each sell  ,will seach live cell in its 8 drn . and will
+check the count match any of the condn to update the cell.
+
+
+//-----------------------------------------------------------//
+
+class Solution {
+public:
+int countofnum(vector<vector<int>>&copy , int row , int col ){
+    int delrow[8]={0,1,0,-1,1,1,-1,-1};
+    int delcol[8]={1,0,-1,0,-1,1,1,-1};
+    int count= 0;
+     int n = copy.size();
+    int m = copy[0].size();
+    for(int i=0;i<8;i++){
+        int nrow = delrow[i]  + row;
+        int ncol = delcol[i] + col;
+        if(nrow >=0  and nrow<n and ncol>=0 and ncol<m and copy[nrow][ncol] == 1){
+            count++;
+        }
+    }
+    return count;
+}
+    void gameOfLife(vector<vector<int>>& board) {
+        int n = board.size();
+        int m = board[0].size();
+        vector<vector<int>>copy=board;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+               if((countofnum(copy , i ,j)<2 || countofnum(copy , i,j) >3) and board[i][j] == 1){
+                board[i][j] = 0;
+               }
+               else if( (countofnum(copy , i, j) == 3) and board[i][j] ==0 ){
+                board[i][j] = 1;
+               }
+               else if((countofnum(copy , i,j) ==2  || countofnum(copy, i ,j) == 3 )and board[i][j] == 1){
+                board[i][j] = 1;
+               }
+            }
+        }
+        return;
+    }
+};

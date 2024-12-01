@@ -1,0 +1,40 @@
+question : add two linkedlist digits .
+
+
+intution : use two pointer   , to add the digit , when num form 
+is 2 digit then break and make a carray and carray remainder to ans 
+and keep on doing this  until l1 || l2  || carray is present.
+since we have to create node  , create dummy node and add the rem in this dummy 
+using pointer .
+
+
+//----------------------------------------------//
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode * dummy = new ListNode(0);
+        ListNode * curr = dummy;
+        int carry = 0;
+        int sum = 0;
+        while(l1!= NULL ||  l2!=NULL || carry){
+            int sum = 0;
+            if(l1!=NULL) {
+                sum += l1->val;
+                l1 = l1->next;
+            }
+            if(l2!=NULL){
+                sum+=l2->val;
+                  l2=  l2->next;
+            }
+            sum += carry;
+            ListNode * temp = new ListNode(sum%10);
+            carry = sum/10;
+            curr->next = temp;
+            curr = curr->next;
+
+        }
+        return dummy->next;
+        
+    }
+};

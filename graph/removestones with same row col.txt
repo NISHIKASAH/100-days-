@@ -1,0 +1,40 @@
+question : remove the stone which are in same row or column , 
+return largest no of  stones removed
+
+intution : Make a group of which share same row or colum and from no of stone remove the no of group formed .
+
+How to Perform : traverse vis array for new group and for each group traverse array mark its cell visisted and  remove its row and column 
+do using dfs with a visited array 
+
+
+exampe : 
+Input: stones = [[0,0],[0,1],[1,0],[1,2],[2,1],[2,2]]
+Output: 5
+//----------------------------------------//
+class Solution {
+public:
+    void dfs(vector<vector<int>>& stones, int idx, vector<int>& vis) {
+        vis[idx] = 1;
+        for (int i = 0; i < stones.size(); i++) {
+            if (vis[i] == -1) {
+                int row = stones[idx][0];
+                int col = stones[idx][1];
+                if (stones[i][0] == row || stones[i][1] == col) {
+                    dfs(stones, i, vis);
+                }
+            }
+        }
+    }
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size();
+        vector<int> vis(n, -1);
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (vis[i] == -1) {
+                dfs(stones, i, vis);
+                count++;
+            }
+        }
+        return n - count;
+    }
+};

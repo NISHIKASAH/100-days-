@@ -1,0 +1,47 @@
+question : find perimeter of island  , you can move in all 4 drn , 
+grid[i][j] == 0 is water , grid[i][j] ==1 is land
+
+intitution : travseral to all grid , whenever u come across water , 
+their end a land(since land i 1mm ) add 1 to perimeter  ,
+mark that land to be visted and move in 4 drn 
+Note : no need to use extra visted array  , grid itself can be used
+//-----------------------------------------------//
+class Solution {
+public:
+
+int m ;
+int n ; 
+int peri ;
+void dfs(vector<vector<int>>& grid , int i ,int j){
+    if(i<0 || i>=m  || j<0 || j>=n || grid[i][j] == 0 ){
+        peri++;
+        return ;
+    }
+   if(grid[i][j] == -1) return ;
+
+   grid[i][j] = -1;
+    dfs(grid ,i+1,j );
+    dfs(grid , i-1 , j);
+    dfs(grid ,i ,j+1);
+    dfs(grid , i ,j-1);
+
+}
+    int islandPerimeter(vector<vector<int>>& grid) {
+        
+        peri =0 ;
+        m = grid.size();
+        n = grid[0].size();
+        for(int i=0;i<m ;i++){
+            for(int j=0;j<n ;j++){
+                if(grid[i][j] == 1){
+                    dfs(grid , i ,j);
+                    return peri;
+                }
+            }
+
+        }
+        return -1;
+
+        
+    }
+};

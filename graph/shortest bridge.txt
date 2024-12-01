@@ -1,0 +1,86 @@
+question : is to connect two island , and to do so  ,we have to find
+minimum no of 0 to 1 . 
+
+intution : find 1st island and use dfs to find its neighbours
+and mark it visited (in  set) 
+And to find send elem , traverse bfs the visited set , and check if 
+the cell is part of 1st island (by visisted set)  
+if not then its can be part of 2nd island so check cell has 1  , that mean we found , return the level
+nhi toh add the cell in queue (this can be possible way to get to 2nd island by flipping) 
+and mark cell as visited
+
+
+//-------------------------------//
+
+class Solution {
+public:
+    int row;
+    int col;
+    int delrow[4] = {0, 1, 0, -1};
+    int delcol[4] = {-1, 0, 1, 0};
+    bool isSafe(int i, int j) {
+        return (i < row && i >= 0 && j < col && j >= 0);
+    }
+    void dfs(int i, int j, vector<vector<int>>& grid,
+             set<pair<int, int>>& visited) {
+        if (!isSafe(i, j) || visited.find({i, j}) != visited.end() ||
+            grid[i][j] == 0) {
+            return;
+        }
+        visited.insert({i, j});
+        for (int p = 0; p < 4; p++) {
+            int nrow = i + delrow[p];
+            int ncol = j + delcol[p];
+            dfs(nrow, ncol, grid, visited);
+        }
+    }
+    int bfs(vector<vector<int>>& grid, set<pair<int, int>>& visited) {
+        int level = 0;
+        queue<pair<int, int>> que;
+        for (auto& it : visited) {
+            que.push({it});
+        }
+        while (!que.empty()) {
+            int n = que.size();
+     
+            for (int i = 0; i < n; i++) {
+
+                int row = que.front().first;
+                int col = que.front().second;
+                que.pop();
+
+                for (int p = 0; p < 4; p++) {
+                    int nrow = row + delrow[p];
+                    int ncol = col + delcol[p];
+                    if (isSafe(nrow, ncol) and
+                        visited.find({nrow, ncol}) == visited.end()) {
+                        if (grid[nrow][ncol] == 1) {
+                            return level;
+                        }
+                        que.push({nrow, ncol});
+                        visited.insert({nrow, ncol});
+                    }
+                }
+            }
+                   level++;
+        }
+        return level;
+    }
+
+    int shortestBridge(vector<vector<int>>& grid) {
+        int count = 0;
+        row = grid.size();
+        col = grid[0].size();
+        set<pair<int, int>> visited;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (grid[i][j] == 1) {
+                    dfs(i, j, grid, visited);
+                    return bfs(grid, visited);
+                }
+            }
+        }
+
+        return -1;
+    }
+};

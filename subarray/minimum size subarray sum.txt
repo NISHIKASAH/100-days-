@@ -1,0 +1,30 @@
+question : minumm size subarray sum with (get shortest len of subarray that sum to target).
+
+intution :  use sliding window + two pointer approach , if sum >=  target then start compressing from 
+front and get the length.
+
+//----------------------------------------------------------//
+
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int n = nums.size();
+        int start = 0;
+        int sum = 0;
+        int ans = INT_MAX;
+        int flag = 0;
+        for(int end = 0; end<n;end++){
+            sum += nums[end];
+            while(sum>=target){
+                flag = 1;
+                ans = min(ans , end-start+1);
+                sum-=nums[start];
+                start++;
+            }
+            
+            
+        }
+        if(flag ==0) return 0;
+        return ans;
+    }
+};

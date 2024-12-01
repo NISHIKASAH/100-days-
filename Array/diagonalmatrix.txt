@@ -1,0 +1,33 @@
+leetcode :498  traverse diagonal matrix  in zig-zag pattern.
+
+intution : use map to store elem using i+j trick 
+and for flip reverse the elem of map andstore.
+
+class Solution {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        bool flip = true;
+        vector<int>ans;
+        int n = mat.size();
+        int m = mat[0].size();
+       map<int,vector<int>>mp;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                mp[i+j].push_back(mat[i][j]);
+            }
+           
+        
+        }
+\
+        for(auto &it : mp){
+          if(flip){
+            reverse(it.second.begin() , it.second.end());
+          }
+          for(int &i : it.second){
+            ans.push_back(i);
+          }
+          flip  = !flip;
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,24 @@
+question : min jump to reach to end of array.
+
+intution : update the array with nextjump . 
+arr[i] = max(arr[i-1] , arr[i]+1);
+iterate of array  and j= arr[i] // represent next jump.
+
+//------------------------------------------//
+
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        for(int i=1;i<n;i++){
+            nums[i] = max(nums[i-1] , nums[i]+i);
+        }
+        int i = 0;
+        int ans = 0;
+        while(i<n-1){
+            ans++;
+            i = nums[i];
+        }
+        return ans;
+    }
+};

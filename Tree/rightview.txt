@@ -1,0 +1,31 @@
+question : find the right view of tree . 
+
+intution : check if level ==  row.size()  then add  the node in ans , 
+and increment for left and right child  while traverersing . remember to start with right tree 
+call first then left call.
+
+
+//-------------------------------------------------------//
+
+class Solution {
+public:
+    void solve(TreeNode * root,vector<int>&ans,int level){
+        if(root == NULL){
+            return ;
+        }
+        if(level == ans.size()){
+            ans.push_back(root->val);
+        }
+        if(root->right){
+            solve(root->right,ans,level+1);
+        }
+        if(root->left){
+            solve(root->left,ans,level+1);
+        }
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int>ans;
+        solve(root,ans,0);
+        return ans;
+    }
+};

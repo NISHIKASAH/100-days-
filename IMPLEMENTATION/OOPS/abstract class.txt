@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+class A {
+    public : 
+    virtual void display() = 0; //abstract class;
+};
+class B : public  A{
+    public : 
+    void display(){
+        cout<<"this is dervied class";
+    }
+    
+};
+int main(){
+    A *obj1 ;
+    B obj2;
+    obj1=&obj2;
+    obj1->display();
+    
+    
+}

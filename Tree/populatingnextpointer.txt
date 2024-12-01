@@ -1,0 +1,26 @@
+question : make left point to rightside node.
+
+intution : while moving down , make root->left have root->right have root->next->left (only when root->next is present)
+and call for left tree and right tree . and return root.
+
+//----------------------------------------------//
+
+class Solution {
+public:
+
+    Node* connect(Node* root) {
+        if(root ==NULL){
+            return root;
+        }
+        
+        if(root->left ){
+            root->left->next = root->right;
+        }
+        if(root->right and root->next != NULL){
+            root->right->next= root->next->left;
+        }
+        connect(root->left);
+        connect(root->right);
+        return root;
+    }
+};

@@ -1,0 +1,37 @@
+//clone the original graph.
+
+inutiton : create a copy of orignal node and to keep their tract ,use map 
+and traverse to for  a copy link .
+
+
+//-----------------------------------------//
+
+class Solution {
+public:
+unordered_map<Node * ,Node * >mp;
+void dfs(Node * newnode , Node *originalnode){
+    for(Node* n : originalnode->neighbors){
+        if(mp.find(n) == mp.end()){
+            Node * copynode = new Node(n->val);
+            newnode->neighbors.push_back(copynode);
+            mp[n] = copynode;
+            dfs(copynode , n);
+        }
+        else{
+            newnode->neighbors.push_back(mp[n]);
+        }
+    }
+
+}
+    Node* cloneGraph(Node* node) {
+        if(node == NULL){
+            return NULL;
+        }
+        Node * clonenode = new Node(node->val);
+        mp[node] = clonenode;
+        dfs(clonenode , node);
+        return clonenode;
+
+        
+    }
+};

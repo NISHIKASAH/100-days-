@@ -1,0 +1,30 @@
+question : there are few rabbits in forest  ,their answer are recorded such that ith rabbit
+state that  , i am 1 and i have more 2 like me  , 
+i.e [2] is 2-> 0-0-0 , 
+return minimum no of rabbit  in forest
+
+intution : store in map  , for each kind find its total , 
+to find total find 1 and muntiply to get total of one kind add count of all kind 
+
+example : Input: answers = [1,1,2]
+Output: 5
+
+1-2  for 1 rabbit of kind 1  , we have ceil 2/1+1 * total(1+1) to get total of kind 1
+2-1 
+
+//---------------------------------------//
+
+class Solution {
+public:
+    int numRabbits(vector<int>& nums) {
+        unordered_map<int,int>mp;
+        int count= 0 ;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+        }
+        for(auto it : mp){
+            count += (it.first+1) * ceil (((float) it.second /(it.first+1)));
+        }
+        return count;
+    }
+};

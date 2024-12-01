@@ -1,0 +1,29 @@
+question : find the two points where water container can be maximum . 
+
+intution :use two pointer approach to get that two pointer , 
+stand at both end and get then consdiered min(num[start] , num[end]) and hieght and end-start+1 as 
+len to get maxarea  , and now to move check if nums[start] < nums[end]  then move start++;
+else end--;
+
+//---------------------------------------------------------------//
+
+
+class Solution {
+public:
+    int maxArea(vector<int>& nums) {
+        int start = 0;
+        int end=  nums.size()-1;
+        int ans= INT_MIN;
+
+        while(start<end){
+            ans = max(ans , min(nums[start], nums[end])* (end-start));
+            if(nums[start]<nums[end]){
+                start++;
+            }
+            else{
+                end--;
+            }
+        }
+        return ans;
+    }
+};

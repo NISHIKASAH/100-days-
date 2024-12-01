@@ -1,0 +1,42 @@
+question : combine of character corresponding to their number mention 
+on phone number . 
+
+intution : iterate over the word  , and add to string and move for next idx+1 . 
+note : here i =0;
+
+//-----------------------------------------//
+
+class Solution {
+public:
+void solve(int idx ,string digits , vector<string>&chara ,vector<string>&ans , string ds ){
+    if(idx >= digits.size()){
+        ans.push_back(ds);
+        return ;
+    }
+    int num = digits[idx]-'0';
+    string word = chara[num];
+    for(int i=0; i<word.size();i++){
+        ds+= word[i];
+        solve(idx+1 , digits , chara ,ans ,  ds);
+        ds.pop_back();
+    }
+
+
+}
+    vector<string> letterCombinations(string digits) {
+        vector<string> chara = {"",   "",   "abc",  "def", "ghi",
+                               "jkl", "mno", "pqrs", "tuv", "wxyz"};
+      
+        string ds ; 
+        vector<string>ans;
+        int n = digits.size();
+          
+        if(n==0){
+            return ans;
+        }
+
+
+         solve(0 , digits , chara , ans ,  ds);
+        return ans;
+    }
+};

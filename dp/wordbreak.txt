@@ -1,0 +1,39 @@
+question : break string and find word  in dict , word can be reused in diff word.
+example - leet , leetcode can be formed of string , and can be find in dict . 
+
+intution : for idx  , iterate over string and check if word find in dict , 
+if find  ,then search for i+1 and store dp[idx] as true.
+after completion of idx iteration store dp[idx] = false.
+
+
+//---------------------------------------//
+
+class Solution {
+public:
+    bool solve(int idx,string s,set<string>&Dict,vector<int>&dp){
+        if(idx == s.length()) return true;
+        if(dp[idx]!=-1) return dp[idx];
+        string  temp = "";
+        for(int i = idx;i<s.length();i++){
+            temp+= s[i];
+            if(Dict.find(temp)!=Dict.end()){
+                if(solve(i+1,s,Dict,dp)){
+                     return dp[idx] = true;
+                }
+               
+            }
+        }
+        return dp[idx] = false;
+        
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string>st;
+        for(int i=0;i<wordDict.size();i++){
+            st.insert(wordDict[i]);
+        }
+       int n =  s.length();
+        vector<int>dp(n,-1);
+        return solve(0,s,st,dp);
+       
+    }
+};

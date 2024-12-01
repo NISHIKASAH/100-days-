@@ -1,0 +1,33 @@
+question : find the h-index 
+h-index is defined as the maximum value of h such that
+ the given researcher has published at least h papers that 
+ have each been cited at least h times.
+
+intution : for each mid ,get a idx and check if elem > idx  then it can be ans 
+to get idx = n-mid; and minimize the ans.
+
+//--------------------------------------------------------------//
+
+ 
+class Solution {
+public:
+    int hIndex(vector<int>& arr) {
+        int n = arr.size();
+        sort(arr.begin(),arr.end());
+        int low =0;
+        int high = n-1;
+        int ans =0;
+        while(low<=high){
+            int mid = low + (high-low)/2;
+            int idx = n - mid;
+            if(arr[mid]>=idx){
+                ans = idx;
+                high = mid-1;
+            }
+            else{
+                low  = mid+1;
+            }
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,75 @@
+question  : find all node at a distance in binary tree
+
+intution : traversal lavel wise ,  from target  k times ,to get k distance node,
+
+working : to traversal from target  ,we have to travser parent also ,since in tree we have 
+access to childs ,use a hashmap to hash parent , while travesal ,
+parent access is available  , now do level order traversal using queue , 
+travel  on left ,right and parent ,and make sure to them visted,for that use set
+
+//----------------------------------//
+
+class Solution {
+public:
+ unordered_map<TreeNode* , TreeNode*>parent;
+ void inorder(TreeNode * root){
+    if(!root) return ;
+    if(root->left){
+        parent[root->left] = root;
+             inorder(root->left);
+       
+    }
+
+    if(root->right){
+        parent[root->right] = root;
+           inorder(root->right);
+       
+    }
+  
+ }
+
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        inorder(root);
+        queue<TreeNode*>q;
+        q.push(target);
+        unordered_set<int>st;
+        st.insert(target->val);
+        while(!q.empty()){
+            int size = q.size();
+          
+            if(k==0){
+                break;
+            }
+            for(int i=0;i<size;i++){
+                TreeNode * temp = q.front();
+                q.pop();
+                if(temp->left !=NULL and !st.count(temp->left->val)){
+                    q.push(temp->left);
+                    st.insert(temp->left->val);
+
+
+                }
+                if(temp->right !=NULL and !st.count(temp->right->val)){
+                    q.push(temp->right);
+                    st.insert(temp->right->val);
+
+                }
+                if(parent[temp] and !st.count(parent[temp]->val)){
+                    q.push(parent[temp]);
+                    st.insert(parent[temp]->val);
+                }
+            }
+            k--;
+        
+        }
+    vector<int>ans;
+    while(!q.empty()){
+        TreeNode* curr = q.front();
+        q.pop();
+        ans.push_back(curr->val);
+
+    }
+    return ans;
+        
+    }
+};

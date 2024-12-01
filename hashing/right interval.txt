@@ -1,0 +1,38 @@
+question  : find the interval index  , greater than the current interval .
+i.e start of other interval must be greater than the  idx interval . 
+
+example : Input: intervals = [[3,4],[2,3],[1,2]]
+Output: [-1,0,1]
+Explanation: There is no right interval for [3,4].
+The right interval for [2,3] is [3,4] since start0 = 3 is the smallest start that is >= end1 = 3.
+The right interval for [1,2] is [2,3] since start1 = 2 is the smallest start that is >= end2 = 2.
+
+intution : mp the start of interval along with its index 
+and then  iterate for each interaval to get interval with greater start than curr (and for 
+this LOWER_BOUND IS USED) that gives idx from map .
+
+//-----------------------------------------------------------//
+
+class Solution {
+public:
+    vector<int> findRightInterval(vector<vector<int>>& intervals) {
+        
+        vector<int>ans;
+        map<int,int>mp;
+        for(int i=0;i<intervals.size();i++){
+            mp[intervals[i][0]] = i;
+        }
+        for(int i=0;i<intervals.size();i++){
+            auto idx = mp.lower_bound(intervals[i][1]);
+            if(idx != mp.end()){
+                ans.push_back(idx->second);
+            }
+            else{
+                ans.push_back(-1);
+            }
+             
+            }
+        
+        return ans;
+    }
+};

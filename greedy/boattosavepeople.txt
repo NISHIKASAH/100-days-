@@ -1,0 +1,26 @@
+question : minimum no of boat required to rescure all people,
+1 boat can accomodate only 2 people with some limit
+
+intution : since two and a limit is provide  ,think of two pointer after sorting array 
+
+class Solution {
+public:
+    int numRescueBoats(vector<int>&nums, int limit) {
+        sort(nums.begin() , nums.end());
+        int start= 0;
+        int end=nums.size()-1;
+        int count=0;
+        while(start<=end){
+            if(nums[start] + nums[end] <= limit){
+                count++;
+                start++;end--;
+            }
+           else{
+            count++;
+            end--;
+           }
+
+        }
+        return count;
+    }
+};

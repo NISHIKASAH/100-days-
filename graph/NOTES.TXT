@@ -1,0 +1,8 @@
+//for grid traversal using of row and col , no need to make adj matrix
+
+// adjacent matrix is made when we have connection or link to get to other node 
+
+//for dfs , traveral mostly use 4 recursivcall,
+//for bfs , used delrow& delcol for traversal in 4 drn
+
+//bfs and dajisktra algo(here source and destination is fixed) is use to find shortest distance 

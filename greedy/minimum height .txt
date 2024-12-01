@@ -1,0 +1,28 @@
+Increase the height of the tower by K
+Decrease the height of the tower by K from each element of array ;
+return the min diff 
+
+idea : abcd  for each i for a+ c -> small = min(arr[i] -k , arr[0]+k)
+                        for b+d -> large = max(arr[i-1]+k  , arr[n-1]-k);
+                        minimize their diff
+
+
+//----------------------------//
+class Solution {
+  public:
+    int getMinDiff(int arr[], int n, int k) {
+        sort(arr , arr+n);
+        int small= arr[0];
+        int large = arr[n-1];
+        int diff = large-small ;
+     
+        for(int i=1;i<=n;i++){
+            if(arr[i] < k) continue ; //to ignore negative elem
+            small = min(arr[i]-k , arr[0]+k);
+            large = max(arr[i-1]+k , arr[n-1]-k);
+            diff = min(diff , large-small);
+            
+        }
+        return diff;
+    }
+};

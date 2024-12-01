@@ -1,0 +1,61 @@
+question : is to convert 0 with x in cell that are sorrounded by x .
+
+intution : start  traversing from boundries , row-wise and colum-wise . 
+and update the cell visited in visited array . 
+and now compare visited array and matrix to update the chnage
+(jo edges se visited hai woh 0 is here ga, i.e unvisited wla ko x kro)
+
+//-----------------------------------------------------//
+
+4class Solution {
+public:
+int n;int m;
+void dfs(int row , int col ,vector<vector<char>>& grid , vector<vector<int>>&vis){
+
+    if(row<0 || row>=n  || col <0 || col>=m || grid[row][col] == 'X' || vis[row][col] == 1) return;
+        vis[row][col] =1;
+    dfs(row,col-1, grid,vis);
+    dfs(row-1,col , grid,vis);
+    dfs(row,col+1,grid,vis);
+    dfs(row+1,col , grid,vis);
+
+    
+
+}
+    void solve(vector<vector<char>>& grid) {
+        
+        n = grid.size();
+        m= grid[0].size();
+
+        vector<vector<int>>vis(n , vector<int>(m,-1));
+        for(int i=0;i<m;i++){
+            if(grid[0][i] == 'O' and vis[0][i] == -1){
+                dfs(0 , i, grid,vis);
+
+            }
+            if(grid[n-1][i] == 'O' and vis[n-1][i] == -1){
+                dfs(n-1, i , grid,vis);
+            }
+        }
+        for(int j=0;j<n;j++){
+            if(grid[j][0] == 'O' and vis[j][0] == -1){
+                dfs(j , 0,grid,vis);
+
+            }
+            if(grid[j][m-1] =='O' and vis[j][m-1] == -1){
+                dfs(j, m-1 , grid,vis);
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j] == 'O' and vis[i][j] == -1){
+                    grid[i][j] = 'X';
+                }
+            }
+        }
+        return;
+        
+        
+    }
+};

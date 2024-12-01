@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+class student {
+     public :
+    string name ; 
+    int regno;
+  
+    void getvalue(string n , int r){
+        this->name = n;
+        this->regno = r;
+    }
+    void display(){
+        cout<<this->name <<this->regno;
+    }
+};
+
+class college : public student {
+    private : 
+    int collegeno;
+    string cname; 
+    public : 
+    void insertinto(int cno , string cnam){
+        collegeno = cno;
+        cname = cnam;
+        
+    }
+    
+    void display(){
+       
+        cout<<collegeno <<cname;
+    }
+};
+    
+
+int main(){
+   college c ;
+//   c.getvalue("nishika", 124);
+   c.insertinto(11 ,"sathyabama");
+   c.display();
+    
+}

@@ -1,0 +1,32 @@
+question : find longest subsequence of array  .
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+
+
+intution : for each elem check if set dont have elem-1 then start find 
+its consecutive elem , and when loop end store the length . 
+
+//----------------------------------------//
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+         unordered_set<int> st;
+        int ans = 0;
+        for(auto i:nums) st.insert(i);
+        
+        for(auto it:nums){
+            if(st.find(it-1)!=st.end()){
+                continue;
+            }
+            int count = 0;
+            while (st.find(it)!=st.end()){
+                it++;
+                count++;
+            }
+            ans = max(ans,count);
+        }
+        return ans;
+    }
+};

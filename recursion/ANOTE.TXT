@@ -1,0 +1,12 @@
+note1 : whenever question demand for all possible , then think of take 
+not take with DS AND ANS datastructure usage.
+
+
+note2 : when we have to iterate for new char for each iteration , then
+i = 0 ,  and for next call idx+1 
+if carrying the same chara  , then i = idx  then if it carry the same traits 
+then i+1 or else idx+1. 
+
+
+
+

@@ -1,0 +1,48 @@
+question : find elem in rotated sorted array.
+
+intution : if left side is sorted , then  compare left and mid with target .
+try compressing  , 
+else  compare mid and right there do opp 
+this this condn not satisfied . if  mid == target then break .
+
+
+//----------------------------------------//
+
+class Solution {
+public:
+    int search(vector<int>& arr, int target) {
+        int low = 0;
+        int high = arr.size()-1;
+        int ans =-1;
+        if(arr.size()==1){
+            if(arr[0] == target) return 0;
+            else return -1;
+        }
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(arr[mid] == target) {
+                ans = mid;
+                break;
+            }
+            if(arr[low]<=arr[mid]){
+                if(arr[low] <=target and arr[mid]>=target){
+
+                    high = mid-1;
+                }
+                else{
+                    low = mid+1;
+                }
+            }
+            else{
+                if(arr[mid]<=target and arr[high]>=target){
+                   
+                    low = mid+1;
+                }
+                else{
+                    high =mid-1;
+                }
+            }
+        }
+        return ans;
+    }
+};

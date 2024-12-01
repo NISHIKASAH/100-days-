@@ -1,0 +1,30 @@
+question : get sum of two no  that meet target  . 
+
+example : Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+
+intution : sort the elem , and use two pointer to sum the elem  that meet target .
+according move i++ and j++;
+//can also be solved  using hashmap.
+
+//----------------------------------------------------------//
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int>mp;
+        int sum = 0;
+        for(int i=0;i<nums.size();i++){
+            int sum = 0;
+           sum += nums[i] ; 
+           if(mp.find(target-sum) != mp.end()){
+               return {i , mp[target-sum]};
+           }
+           else{
+            mp[sum] = i;
+           }
+        }
+        return {};
+    }
+};

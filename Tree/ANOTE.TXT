@@ -1,0 +1,25 @@
+Note1 : while we return from a node ,we mostly considere it visited and to make a count ,we use a varaible to 
+keep check . example  count==k mean we have visited count nodes (used while findind kth element)
+
+
+NOTE2 : u dont have to pop element which ur moving from left to right side of a 
+tree  , if ur storing node value . 
+
+example : void solve(TreeNode * root , ll &ans, ll temp ){
+    if(root->left == NULL and root->right == NULL){
+       temp = temp*10 + root->val;
+       ans += temp;
+        return ;
+    }
+    temp = temp*10 + root->val;
+    if(root->left ) solve(root->left , ans , temp);
+    if(root->right) solve(root->right , ans , temp);
+}
+yeh pe jab left se right side ka elem dhala hu  ,toh leftside ka 
+pop nhi kiye hum , woh tree manager kr lete h when u call right side  , aur temp mai 
+left wala left node erase ho jte h while returning and add hote h rightside wla.
+
+
+NOTE3 imp : jabhi  left side right side move krna hoga , 
+aur done ka value add wager ho rhe ho toh  ,yeh sum wla 
+equation  , left call aur right call ke upar hote h after base case.

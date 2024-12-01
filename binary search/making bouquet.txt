@@ -1,0 +1,59 @@
+question : ith flower will bloom ith day  and same kind of k flower is 
+reuired to make m bouquet .
+Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets return -1.
+
+
+intution : we can considere range of days  , like
+it may go from 1 to max of all day  , and for each day will check if we can be m bouquets
+and will try to find minimum no of day required .
+
+if(nums[i]<=day){
+    phle hi bloom higya h before considered day we can use
+}
+else {
+    nhi toh flower =0;,bcox we cannot make flower(bcoz we nned same kind of flower)
+}
+
+//---------------------------------//
+
+
+class Solution {
+public:
+    bool makebouquet(vector<int>&bloom,int m,int k,int day){
+        int bouquet = 0;
+        int flower = 0;
+        for(int i=0;i<bloom.size();i++){
+            if(bloom[i]<=day){
+                flower++;
+                if(flower == k){
+                    bouquet++;
+                    flower = 0;
+                }
+                
+            }
+            else flower = 0;
+            
+        }
+        return bouquet >= m;
+        
+    }
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        int n = bloomDay.size();
+        int  ans = 0;
+      
+        int  low = 1; int high = INT_MIN;
+        for(auto it:bloomDay){
+            high = max(high,it);
+        }
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(makebouquet(bloomDay,m,k,mid)){
+                ans = mid;
+                high = mid-1;
+            }
+            else low = mid+1;
+        }
+       if(ans<=0) return -1;
+        else return ans;
+    }
+};

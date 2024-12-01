@@ -1,0 +1,29 @@
+question :  for each elem  , find the conservation stock span(less than or equal to that day(current day)) 
+for example : [3,4,6,11,6 ,4,7 ,8]
+ for elem-7 the stock span is 7,4,6 
+
+ intution : for current day  ,look backward for greater elem in stack ,
+ when found their ends streak of current stock , place the streak maintain as ans
+
+
+ class StockSpanner {
+public:
+ stack<pair<int,int>>st;
+    StockSpanner() {
+       
+    }
+    
+    int next(int price) {
+        
+        int count= 1;
+        while(!st.empty() &&  st.top().first <= price){
+
+            count += st.top().second;
+            st.pop();
+        }
+        st.push({price ,count });
+
+
+        return count;
+    }
+};

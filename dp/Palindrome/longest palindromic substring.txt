@@ -1,0 +1,46 @@
+question : find longest palindromic substring.
+NOTE : here we have to find substring not len .
+to do so  ,we need start and len to get substring.
+
+intution : update dp for 1 char palidrome  , then 
+update dp for 2 char palindrome . 
+and then iterate from 3 char ,i iterate for all chara and j  will point to i+k-1;
+and check for dp[i+1][j-1] if it was palidrome and s[i] == s[j] then we got new start 
+and len  , update and iterate for further longer palindrome substring.
+
+
+//------------------------------------------------------//
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        vector<vector<int>>dp(n+1, vector<int>(n+1,-1));
+        int len =0;
+        int start = 0;
+        for(int i=0;i<n;i++){
+            dp[i][i] = 1;
+            len = 1;
+            start =i;
+
+        }
+        for(int i=0;i<n-1;i++){
+            if(s[i] == s[i+1]){
+                dp[i][i+1] =1;
+                len  =2;
+                start = i;
+            }
+        }
+        for(int k=3;k<=n;k++){
+            for(int i=0;i<=n-k;i++){
+                int j = i+k-1;
+                if(dp[i+1][j-1] == 1 and s[i] == s[j]){
+                    dp[i][j] =1;
+                    len = j-i+1;
+                    start = i;
+                }
+            }
+        }
+        return  s.substr(start , len);
+    }
+};

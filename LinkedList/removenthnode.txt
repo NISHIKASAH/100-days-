@@ -1,0 +1,29 @@
+question : remove nth node from last of linkedlist.
+
+intution : phle fast ko n(given in ques) times move from kro and then move 
+slow and fast together  1 time. till fast don't reach to end of node.
+slow will point to elem previous of node that is to be deleted.
+
+//-------------------------------------------//
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+       ListNode start = new ListNode();
+        start.next = head;
+        ListNode fast = start;
+        ListNode slow = start;     
+
+        for(int i = 1; i <= n; ++i)
+            fast = fast.next;
+    
+        while(fast.next != null)
+        {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        slow.next = slow.next.next;
+        
+        return start.next;
+    }
+}

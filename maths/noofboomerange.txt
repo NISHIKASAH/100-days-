@@ -1,0 +1,32 @@
+question : find the no of boomerage  , bomarge occur when two point cover same dist  
+
+intution : find dist for each points and map its ,for each point ,check 
+if same dist occur then get the total += it.second * it.second-1;
+
+
+//--------------------------------------------------------------//
+
+class Solution {
+public:
+    int numberOfBoomerangs(vector<vector<int>>& arr) {
+        int total = 0;
+        for(int i=0;i<arr.size();i++){
+            unordered_map<int,int>mp;
+            for(int j=0;j<arr.size();j++){
+                if(i==j) {
+                    continue;
+                }
+                int dx = arr[i][0] - arr[j][0];
+                int dy  = arr[i][1] - arr[j][1];
+                int dis =dx*dx + dy*dy;
+                mp[dis]++;
+            }
+               for(auto &it:mp){
+                   if(it.second>1){
+                       total += (it.second * (it.second-1));
+                   }
+               }
+        }
+        return total;
+    }
+};

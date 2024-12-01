@@ -1,0 +1,48 @@
+question : You are given weights and values of N items,
+ and put these items in a knapsack of capacity W to get the maximum total value in the knapsack. 
+ Note that we have only one quantity of each item.
+
+
+intution : use take or nottake ,while take consider the weight then add value  
+and based case if idx ==0 then if w[i]<=weight then return is value.
+
+//-------------------------------------------//
+
+class Solution
+{
+    public:
+    //Function to return max value that can be put in knapsack of capacity W.
+    int solve(int idx , int wt[] , int val[] , int weight,  vector<vector<int>>&dp){
+      if(idx ==0){
+          if(wt[idx] <= weight){
+              return val[idx];
+          }
+          else{
+              return 0;
+          }
+      }
+      if(dp[idx][weight] !=-1){
+          return dp[idx][weight];
+      }
+      
+       int notPick = solve(idx-1 , wt,val ,weight,dp);
+       int pick = 0;
+        if(wt[idx] <= weight){
+            
+            pick = val[idx] + solve(idx-1 ,wt,val ,weight-wt[idx],dp);
+        }
+        dp[idx][weight] = max(notPick ,pick);
+        return dp[idx][weight];
+        
+        
+    }
+    int knapSack(int W, int wt[], int val[], int n) 
+    
+    { 
+        
+       vector<vector<int>>dp(n , vector<int>(W+1 ,-1)); 
+      return solve(n-1, wt,val , W,dp);
+      
+    }
+};
+

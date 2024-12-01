@@ -1,0 +1,35 @@
+question : return true if you can partition the array into two subsets 
+such that the sum of the elements in both subsets is equal or false otherwise.
+
+intution : if sum = sumofallelem/2 , if subset with sum can be formed,  then array can be partition in equal subset
+
+class Solution {
+public:
+    bool solve(int idx,vector<int>&nums,int target,vector<vector<int>>&dp){
+        if(target == 0) return true;
+        if(idx == 0){
+            return nums[0] == target;
+        }
+        if(dp[idx][target] !=-1) return dp[idx][target];
+        bool notpick = solve(idx-1,nums,target,dp);
+        bool pick = false;
+        if(nums[idx]<=target){
+            pick = solve(idx-1,nums,target-nums[idx],dp);
+        }
+        return dp[idx][target] = notpick || pick;
+    }
+    bool canPartition(vector<int>& nums) {
+       int n = nums.size();
+       
+        int sum = 0;
+        for(int i=0;i<n;i++){
+            sum+=nums[i];
+        }
+         if(sum%2 ==1) return false;
+        int target = sum /2;
+       
+         vector<vector<int>>dp(n,vector<int>(target+1,-1));
+        return solve(n-1,nums,target,dp);
+        
+    }
+};

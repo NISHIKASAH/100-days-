@@ -1,0 +1,44 @@
+question : to find shortest distance between each node to all
+other node.
+
+intution : for each node goes via a node  to destnation node.
+example : going via 1 
+d[0][1] = d[0][1] + d[1][1];
+d[0][2]  = d[0][1] + d[1][2];
+d[0][3] = d[0][1] + d[1][3];
+
+//----------------------------------------//
+
+
+class Solution {
+  public:
+	void shortest_distance(vector<vector<int>>&grid){
+	    int row = grid.size();
+	    int col = grid[0].size();
+	   // vector<vector<int>>grid(vector<int>(row , vector<int>(col,INT_MAX)))
+	   for(int i=0;i<row;i++){
+	       for(int j=0;j<col;j++){
+	           if(grid[i][j] == -1){
+	               grid[i][j] = 100000;
+	           }
+	       }
+	   }
+	  
+	    for(int via =0;via <row;via++){
+	        for(int i=0;i<row;i++){
+	            for(int j=0;j<col ; j++){
+	                grid[i][j] = min(grid[i][j] , grid[i][via] + grid[via][j]);
+	            }
+	        }
+	    }
+	      for(int i=0;i<row;i++){
+	       for(int j=0;j<col;j++){
+	           if(grid[i][j] == 100000){
+	               grid[i][j] = -1;
+	           }
+	       }
+	   }
+	    return ;
+	}
+};
+

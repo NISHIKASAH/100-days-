@@ -1,0 +1,66 @@
+question : group of all anagram together . 
+
+example : Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+intution : for each elem get the  sorted elem and at the sorted elem MAP the element.
+
+it example :  mp[sortedof str[i]] = str[i];
+
+//--------------------------------------------------------//
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>>ans;
+        unordered_map<string,vector<string>>mp;
+        for(int i=0;i<strs.size();i++){
+            string s = strs[i];
+            sort(strs[i].begin(),strs[i].end());
+            mp[strs[i]].push_back(s);
+            
+        }
+        for(auto it:mp){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+};
+
+
+//another way //
+
+inution : we optimise over sorting , for used a vector to store the char count,
+and iterate to get it sorted form.and then same .
+
+class Solution {
+public:
+    string generateword(string s) {
+        vector<int> vec(26, 0);
+
+        for (int i = 0; i <s.size(); i++) {
+            vec[s[i] - 'a']++;
+        }
+        string temp = "";
+        for (int i = 0; i < vec.size(); i++) {
+            int freq = vec[i];
+            if (freq > 0) {
+                temp += string(freq, i + 'a');
+            }
+        }
+
+        return temp;
+    }
+    vector<vector<string>> groupAnagrams(vector<string>& str) {
+        vector<vector<string>> ans;
+        unordered_map<string, vector<string>> mp;
+        for (int i = 0; i < str.size(); i++) {
+            string new_word = generateword(str[i]);
+            mp[new_word].push_back(str[i]);
+        }
+        for (auto it : mp) {
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+};

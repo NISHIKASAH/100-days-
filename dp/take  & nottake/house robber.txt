@@ -1,0 +1,31 @@
+question : theif can robber house in adjacent manner . return the max money
+robbed without alerting the police.
+
+intution : use khandani approach , and store max of option in dp .
+
+//----------------------------------------------------//
+
+class Solution {
+public:
+    int solve(int idx,vector<int>&dp,vector<int>&nums){
+        if(idx<0){
+            return 0;
+        }
+        if(idx == 0){
+            return nums[idx];
+        }
+        if(dp[idx]!=-1){
+            return dp[idx];
+        }
+        int nottake = solve(idx-1,dp,nums);
+        int take = nums[idx] +  solve(idx-2,dp,nums);
+        dp[idx] = max(take,nottake);
+        return dp[idx];
+        
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>dp(n+1,-1);
+        return solve(n-1,dp,nums);
+    }
+};

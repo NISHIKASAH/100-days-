@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int drow[4]={0,+1,0,-1};
+    int dcol[4]={+1,0,-1,0};
+    void solve(vector<vector<int>> &image,vector<vector<int>> &ans,int sr,int sc,int ini,int color){
+        int n=ans.size();
+        int m=ans[0].size();
+        ans[sr][sc]=color;
+        for(int i=0;i<4;i++){
+            int row=sr+drow[i];
+            int col=sc+dcol[i];
+            if(row<n and col<m and row>=0 and col>=0 and image[row][col]==ini and ans[row][col]!=color){
+                solve(image,ans,row,col,ini,color);
+            }
+        }
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        vector<vector<int>> ans=image;
+        int ini=image[sr][sc];
+        solve(image,ans,sr,sc,ini,color);
+        return ans;
+    }
+};

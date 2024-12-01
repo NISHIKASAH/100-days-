@@ -1,0 +1,59 @@
+question : there are few function we have to just maintain this function , 
+visit - maintain the curr site that is visisted , 
+back - store prev site that was visisted 
+future  - store future site that can be visisted
+NOTE : from curr site how to  travel to this function to access this functionality
+
+intution : 
+1. when ur visiting to a website  ,ur curr bcom past ,so it need to be store as backup
+and future is cleared
+2 . when move backward to access previous visted site  , 
+storing curr in future bcoz it might get visted again in future store in future till step>0 and update curr with prev.top()  to maintain curr site 
+3. when moving to future site, store curr in backup stack ,bcoz it might be visted  and do this till steps
+and update the curr everytime with future top.
+
+
+
+class BrowserHistory {
+public:
+stack<string>prev ;
+stack<string>next;
+string curr ;
+    BrowserHistory(string homepage) {
+         curr  = homepage;
+    }
+    
+    void visit(string url) {
+        
+        prev.push(curr);
+        curr = url;
+        while(!next.empty()){
+            next.pop();
+
+        }
+        
+    }
+    
+    string back(int steps) {
+        while(steps >0 && !prev.empty()){
+            next.push(curr);
+            curr = prev.top() ;
+            prev.pop();
+            steps--;
+
+        }
+        return curr;
+        
+    }
+    
+    string forward(int steps) {
+        while(steps>0 && !next.empty()){
+            prev.push(curr);
+            curr = next.top();
+            next.pop();
+            steps--;
+        }
+        return curr;
+        
+    }
+};

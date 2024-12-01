@@ -1,0 +1,43 @@
+question : find the speed at which he should eat to complete all
+banana within the given time
+
+intitution : low=1 and max speed can be max of all piles
+
+//------------------------------//
+
+class Solution {
+public:
+    long long CanEatEachPiles(vector<int>&piles,int mid){
+        long long sum_hr = 0;
+        for(auto i :piles){
+            sum_hr+= ceil((double)i/mid);
+            
+        }
+        return sum_hr;
+        
+    }
+    
+    int minEatingSpeed(vector<int>& piles, int h) {
+        sort(piles.begin(),piles.end());
+        int mink = INT_MAX;
+        int low  = 1 ;//1 banana in 1 hr 
+        int high = INT_MIN; //eating maxn of piles in 1hr
+        for(int i=0;i<piles.size();i++){
+            high = max(high,piles[i]);
+        }
+    
+        
+        while(low<=high){
+            int mid = (low+high)/2;
+            if(CanEatEachPiles(piles,mid)<=h){
+                mink = min(mink,mid);
+                high = mid-1;
+                
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        return mink;
+    }
+};

@@ -1,0 +1,39 @@
+//question : return no of subarray with oddsum  ,ans can be large 
+return mod of it
+
+intution : since there are many choices ,and its subarray 
+think of dp , 
+we know if 0th idx is odd then dp[0] = 1;
+similary will calcuate for i=1 to n 
+if idx  is even just store previous no of subarray with oddsum 
+,else store  COUNT TILL ITH INDEX OF ARRAY  till found , i.e i-dp[i-1]+1
+this is similar to end-start+1 (store count of subarray till end)
+and after every iteartion store dp[ith]  index  value in ans 
+
+
+
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& arr) {
+        int n =arr.size();
+        int MOD = 1e9+7;
+        vector<int>dp(n);
+        if(arr[0]%2 == 1){
+            dp[0] = 1;
+        }
+        int ans= dp[0];
+        for(int i=1;i<n;i++){
+            if(arr[i]%2 ==0){
+                dp[i] = dp[i-1];
+            }
+            else{
+                dp[i]= i-dp[i-1]+1;
+            }
+            ans = (ans + dp[i]) % MOD;
+
+        };
+        return ans;
+
+
+ }
+};

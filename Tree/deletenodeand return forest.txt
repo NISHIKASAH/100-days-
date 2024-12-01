@@ -1,0 +1,52 @@
+question : delete node thatare present inside delete array ,
+return a array that contain all remainaing node
+
+
+intitution:  root node can be deleted  ,so backtract ,and while return  check 
+if its to be deleted ,the check for its child if not tobe deleted then  push in array
+and at root asigned null i.e root = NULL;
+//------------------------------//
+
+
+
+class Solution {
+public:
+TreeNode * dfs(TreeNode * root , unordered_set<int>&st ,vector<TreeNode*>&ans){
+    if(root == NULL) return root;
+    if(root->left){
+       root->left =  dfs(root->left , st , ans);
+    }
+    if(root->right){
+        root->right = dfs(root->right , st ,ans);
+    }
+    if(st.count(root->val)){
+        if( root->left and !st.count(root->left->val)){
+            ans.push_back(root->left);
+        }
+        if(root->right  and !st.count(root->right->val)){
+            ans.push_back(root->right);
+        }
+        root= NULL;
+
+    }
+
+   
+    
+return root;
+}
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+        if(root ==NULL)return {};
+        unordered_set<int>st;
+        for(int i=0;i<to_delete.size() ; i++){
+            st.insert(to_delete[i]);
+        }
+        vector<TreeNode*>ans;
+        TreeNode * parentroot = dfs(root , st,ans);
+        if(parentroot){
+                ans.push_back(parentroot);
+        }
+    
+
+        return ans;
+    }
+};

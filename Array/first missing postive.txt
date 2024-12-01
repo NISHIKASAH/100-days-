@@ -1,0 +1,25 @@
+question : find first postive missing no . 
+
+intution : postive no start from 1  , so store elem in set and 
+start iteraing from 1  , till no where  , 
+and check if i elem is there in set 
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        set<int>st;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i] >= 0){
+                 st.insert(nums[i]);
+            }
+           
+        }
+        //pos num start from 1
+        for(int i=1; ; i++){
+            if(st.find(i) == st.end()){
+                return i;
+            }
+        }
+        return 1;
+    }
+};

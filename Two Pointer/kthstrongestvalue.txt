@@ -1,0 +1,36 @@
+question : return array of k  size  ,which contain elem  which are stronger
+that is when median sub from them that are larger
+
+intitution :we can get  stronger elem by comparing smaller and larger elem , 
+sort sort the array and using two pointer to point to array elem 
+
+idea : since we need only k elem , so iterate k times only and compare smaller and larger elem  by subtracting 
+median from them  ,and which is strnger store in ans 
+
+note : dont using while loop for iterating array  , instead iterate till k and put in ans stronger elem
+
+//----------------------------------------------//
+class Solution {
+public:
+    vector<int> getStrongest(vector<int>& arr, int k) {
+        int i = 0;
+        int j = arr.size() - 1;
+        sort(arr.begin(), arr.end());
+        int n = arr.size();
+        int m = (n-1)/2;
+        int mid = arr[m];
+        vector<int> ans(k);
+        for (int p = 0; p < k; p++) {
+            int left = abs(arr[i] - mid);
+            int right = abs(arr[j] - mid);
+            if (left <= right) {
+                ans[p] = arr[j];
+                j--;
+            } else {
+                ans[p] = arr[i];
+                i++;
+            }
+        }
+        return ans;
+    }
+};

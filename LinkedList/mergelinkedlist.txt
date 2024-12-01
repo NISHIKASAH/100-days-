@@ -1,0 +1,42 @@
+question : merge two  lined list . 
+
+intution : create a dummy linkedlist and a pointer , use pointer 
+to make nodes to dummy linkedlist .
+
+//-----------------------------------------------------//
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode *dummy = new ListNode(0);
+        ListNode * curr = dummy;
+        ListNode * l1  = list1;
+        ListNode * l2 = list2;
+        while(l1 != NULL && l2 != NULL){
+            if(l1->val <= l2->val){
+                curr->next= l1;
+                l1 = l1->next;
+                curr = curr->next;
+            }
+            else if(l1->val > l2->val){
+                curr->next = l2;
+                l2 = l2->next;
+                curr = curr->next;
+
+            }
+
+        }
+        if(l1!= NULL){
+            curr->next = l1;
+            l1= l1->next;
+            curr = curr->next;
+        }
+        if(l2!=NULL){
+            curr->next = l2;
+            l2 = l2->next;
+            curr = curr->next;
+        }
+        return dummy->next;
+        
+    }
+};

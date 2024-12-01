@@ -1,0 +1,49 @@
+find flight that cost less to reach to x node with k  stop in between the path
+
+to do ,we can use bfs traversal to reach node with k stop , 
+and a dist to store cheapst path to reach dist , 
+
+if(distofu + distofv < dist[v]){
+    dist[v]  = distofu + distofv ; 
+    q.push({v , distofu + distofv})
+}
+ /-----------------------------------------------/
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst,
+                          int k) {
+        vector<int> dist(n, INT_MAX);
+        unordered_map<int, vector<pair<int, int>>> adj;
+        for (vector<int>& it : flights) {
+            int u = it[0];
+            int v = it[1];
+            int cost = it[2];
+            adj[u].push_back({v, cost});
+        }
+        queue<pair<int, int>> q;
+        q.push({src, 0});
+        dist[src] = 0;
+        int step = 0;
+        while (!q.empty() and step <= k) {
+            int N = q.size();
+            while (N--) {
+                int u = q.front().first;
+                int cost = q.front().second;
+                q.pop();
+                for (pair<int, int>& i : adj[u]) {
+                    int v = i.first;
+                    int extendcost = i.second;
+                    if (dist[v] > cost + extendcost) {
+                        dist[v] = cost + extendcost;
+                        q.push({v, cost + extendcost});
+                    }
+                }
+            }
+            step++;
+        }
+        if (dist[dst] == INT_MAX)
+            return -1;
+        else
+            return dist[dst];
+    }
+};

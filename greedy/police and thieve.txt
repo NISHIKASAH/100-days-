@@ -1,0 +1,41 @@
+calculate how many thieve are catch notes , Each policeman can catch only one thief.
+A policeman cannot catch a thief who is more than K units away from him.
+
+idea : if abs dist of police <= thief ,the catch  ,
+ else move police if police dist is less than thief or else move for next thief to catch
+
+
+ class Solution{
+    public:
+    int catchThieves(char arr[], int n, int k) 
+    {
+        vector<int>police;
+        vector<int>thief;
+        for(int i=0;i<n;i++){
+            if(arr[i] == 'P'){
+                police.push_back(i);
+            }
+            else if(arr[i] == 'T') {
+                thief.push_back(i);
+            }
+        }
+        
+        int t =0 ;
+        int p =0;
+        int ans =0;
+        while(p<police.size()  and t<thief.size()){
+            if(abs(police[p] - thief[t]) <=k){
+                p++;t++;
+                ans++;
+                
+            }
+           else if(police[p] < thief[t]){
+               p++;
+           }
+           else{
+               t++;
+           }
+        }
+        return ans;
+    }
+};

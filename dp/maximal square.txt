@@ -1,0 +1,35 @@
+question : find the maximal area of square;
+
+intution : use dp to get the store the length , whenever we come to 0 then will destroyed length 
+and previous cannot be considered anymore.
+when we have 1  , then get 1 + min of downward L shaped value in i j of dp.
+//------------------------------------------------------------//
+
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int row = matrix.size();
+        int col = matrix[0].size();
+        int maxlen=0;
+        if(row==0) return 0;
+        vector<vector<int>>dp(row+1,vector<int>(col+1,0));
+        for(int i=1;i<=row;i++){
+            for(int j=1;j<=col ;j++){
+                if(matrix[i-1][j-1] == '0'){
+                    dp[i][j] = 0;
+
+                }
+                else{
+                    dp[i][j] = 1 + min(dp[i-1][j] , min(dp[i-1][j-1],dp[i][j-1]));
+                   
+                }
+                  maxlen = max(maxlen , dp[i][j]);
+                 
+            }
+          
+        }
+        return maxlen*maxlen;
+        
+        
+    }
+};

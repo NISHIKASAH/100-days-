@@ -1,0 +1,41 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+//----------run-time polymorphism ----------//
+class student {
+    string name ;
+    int regno;
+    
+    public :
+    void getvale(string n , int r){
+        name = n;
+        regno = r;
+        
+    }
+    virtual void display(){ //this function is override by childclass display
+        cout<<name<<regno;
+    }
+    
+};
+class subject : public student{
+    string courseA;
+    string courseB;
+    public :
+    void insertinto(string a,string b){
+        courseA = a;
+        courseB =b;
+        
+    }
+    void display(){
+        cout<<courseA<<courseB;
+    }
+};
+int main(){
+    student *s;
+    subject sub;
+    s = &sub;
+    s->getvale("nishika" ,1234);
+    sub.insertinto("maths" , "physic");
+    s->display();
+}

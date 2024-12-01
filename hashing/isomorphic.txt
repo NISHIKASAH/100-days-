@@ -1,0 +1,31 @@
+question : Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+
+intution : use two  hashmap ,1 to keep track of repeted elem and other for replacement /used elem on behaf.
+if elem is repeted , then check if its rep[s[i]] != t[i]  return false.
+else  check if its first time  , check replacement is already used  , then return false, else replace 
+used[s[i]] = t[i] and used[t[i]]= true.
+
+//------------------------------------------------------------//
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        unordered_map<char, char> rep;
+        unordered_map<char,bool> used;
+        for (int i = 0; i < s.length(); i++) {
+            if (rep.count(s[i])) {
+                if (rep[s[i]] != t[i]) {
+                    return false;
+                }
+            } else {
+                if (used[t[i]]) {
+                    return false;
+                }
+                rep[s[i]] = t[i];
+                used[t[i]] = true;
+                
+            }
+        }
+        return true;
+    }
+};
